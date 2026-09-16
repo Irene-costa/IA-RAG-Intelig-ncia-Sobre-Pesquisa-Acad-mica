@@ -1,5 +1,0 @@
-requests
-pydantic
-dotenv
-openai
-pyyaml
