@@ -1,51 +1,100 @@
 {
-  "scenario_id": "cenario-3",
+  "scenario_id": "cenario-3-pesquisa-academica",
   "version": "v1",
-  "coletado_em": "2026-09-18T18:57:23.430144+00:00",
-  "manifest_hash": "sha256:bc8b51a67f78de766c1be878faaf4c5b6a66a9ccd0a53a9670441516ce525186",
+  "coletado_em": "2026-09-18T19:43:45.101804+00:00",
+  "manifest_hash": "sha256:3d95e4e526351a89a3974b1b12e9d5299f54a1395594e09e7c4408bafdd9f6ed",
   "totais": {
-    "arquivos": 0,
-    "bytes": 0,
+    "arquivos": 4,
+    "bytes": 3783694,
     "falhas": 0
   },
   "por_base": [
     {
       "base_id": "editais_normativo",
       "natureza": "normativa",
-      "arquivos": 0,
-      "formatos": {},
-      "bytes": 0,
-      "volume_alvo": 0,
-      "divergencia_alvo": 0
+      "arquivos": 1,
+      "formatos": {
+        "txt": 1
+      },
+      "bytes": 1146,
+      "volume_alvo": 2,
+      "divergencia_alvo": -1
     },
     {
-      "base_id": "dados_estruturado",
+      "base_id": "producao_estruturada",
       "natureza": "estruturada",
-      "arquivos": 0,
-      "formatos": {},
-      "bytes": 0,
-      "volume_alvo": 0,
-      "divergencia_alvo": 0
+      "arquivos": 1,
+      "formatos": {
+        "json": 1
+      },
+      "bytes": 3576779,
+      "volume_alvo": 25,
+      "divergencia_alvo": -24
     },
     {
-      "base_id": "faq_conversacional",
+      "base_id": "pareceres_conversacional",
       "natureza": "conversacional",
-      "arquivos": 0,
-      "formatos": {},
-      "bytes": 0,
-      "volume_alvo": 0,
-      "divergencia_alvo": 0
+      "arquivos": 1,
+      "formatos": {
+        "json": 1
+      },
+      "bytes": 3647,
+      "volume_alvo": 5,
+      "divergencia_alvo": -4
     },
     {
-      "base_id": "relatorios_agregada",
+      "base_id": "metricas_agregada",
       "natureza": "agregada",
-      "arquivos": 0,
-      "formatos": {},
-      "bytes": 0,
-      "volume_alvo": 0,
-      "divergencia_alvo": 0
+      "arquivos": 1,
+      "formatos": {
+        "json": 1
+      },
+      "bytes": 202122,
+      "volume_alvo": 20,
+      "divergencia_alvo": -19
     }
   ],
-  "arquivos": [],
+  "arquivos": [
+    {
+      "path": "raw\\v1\\editais_normativo\\resolucao_cns_510_2016.txt",
+      "base_id": "editais_normativo",
+      "tipo": "txt",
+      "bytes": 1146,
+      "sha256": "05469afaaa3f2f43c23ceac01dc376897f39161031bef10da00fa4d3acea79df",
+      "origem": "D:\\Programação\\Serratec\\Residencia RAG\\ia-generativa-e-rag-desafio-grupo-5-Cenario-3-Inteligencia-sobre-Pesquisa-Academica\\data\\raw\\sintetico\\resolucao_cns_510_2016.txt",
+      "coletado_em": "2026-09-18T19:43:45.034759+00:00",
+      "status": "ok"
+    },
+    {
+      "path": "raw\\v1\\producao_estruturada\\data.json",
+      "base_id": "producao_estruturada",
+      "tipo": "json",
+      "bytes": 3576779,
+      "sha256": "05a521427f39012ed9c9bf82fe6cf45b13a19ec08ff57a0bfc5a1226e199e48f",
+      "origem": "https://api.openalex.org/works",
+      "coletado_em": "2026-09-18T19:43:45.072928+00:00",
+      "status": "cached"
+    },
+    {
+      "path": "raw\\v1\\pareceres_conversacional\\pareceres_peer_review.json",
+      "base_id": "pareceres_conversacional",
+      "tipo": "json",
+      "bytes": 3647,
+      "sha256": "93eda0007208e70363d1d3028e142cc0bd2800c60c9a80e805f871193fac5a21",
+      "origem": "D:\\Programação\\Serratec\\Residencia RAG\\ia-generativa-e-rag-desafio-grupo-5-Cenario-3-Inteligencia-sobre-Pesquisa-Academica\\data\\raw\\sintetico\\pareceres_peer_review.json",
+      "coletado_em": "2026-09-18T19:43:45.085109+00:00",
+      "status": "ok"
+    },
+    {
+      "path": "raw\\v1\\metricas_agregada\\data.json",
+      "base_id": "metricas_agregada",
+      "tipo": "json",
+      "bytes": 202122,
+      "sha256": "0fd01a6a119c17b6e443f8ac5e999f605210b56e8077401e51e359d7471b7036",
+      "origem": "https://api.openalex.org/topics",
+      "coletado_em": "2026-09-18T19:43:45.101760+00:00",
+      "status": "cached"
+    }
+  ],
   "falhas": []
 }

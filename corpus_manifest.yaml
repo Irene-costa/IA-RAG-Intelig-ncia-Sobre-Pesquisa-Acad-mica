@@ -1,32 +1,76 @@
-# As quatro bases declaradas, com natureza, fonte e tipo de acesso.
-# Não precisa estar completo em endpoints e parâmetros hoje. Precisa existir, com as quatro bases nomeadas e a seleção pensada.
+scenario_id: cenario-3-pesquisa-academica
+version: "2026-09-18"              # data do congelamento do corpus
+description: "Corpus para Inteligência sobre Pesquisa Acadêmica (Editais de Fomento/Ética, Metadados OpenAlex, Pareceres de Peer Review e Métricas Bibliométricas)"
+
 bases:
   - base_id: editais_normativo
-    natureza: normativa
-    fonte: "https://arxiv.org/"
-    tipo_acesso: publico
-    arquivos:
-      - rag_survey.pdf
-      - 2404.10981.pdf
-      - 2405.07437.pdf
+    natureza: normativa            # normativa | estruturada | conversacional | agregada
+    fonte: "Editais FAPERJ / CNPq e Resoluções CNS/CONEP"
+    acesso:
+      tipo: arquivo_local          # rest_api | http_pdf | arquivo_local | sintetico
+      caminho_local: "data/raw/sintetico/resolucao_cns_510_2016.txt"
+      rate_limit_seg: 1.0
+    selecao_deterministica: true   # mesmo manifesto => mesmo corpus
+    volume_alvo: 2                 # quantidade esperada de arquivos
+    formato: txt
+    licenca: "Domínio Público / Governo Federal & Estadual"
+    sensitivity_default: publico   # publico | interno | restrito
+    campo_vigencia: "data_publicacao"
+    chunking_sugerido: "Split por artigos, seções e cláusulas com overlap"
+    metadados_extras: [orgao_emissor, numero_norma, ano, tema]
 
-  - base_id: dados_estruturado
+  - base_id: producao_estruturada
     natureza: estruturada
-    fonte: "https://exemplo.com/dados"
-    tipo_acesso: interno
-    arquivos:
-      - tabela_precos.json
+    fonte: "OpenAlex REST API"
+    acesso:
+      tipo: rest_api
+      endpoint: "https://api.openalex.org/works"
+      params:
+        filter: "institutions.country_code:BR,publication_year:2023-2024"
+        per_page: 25
+      paginacao: { campo: "page", tamanho: 25 }
+      rate_limit_seg: 1.0
+    selecao_deterministica: true
+    volume_alvo: 25
+    formato: json
+    licenca: "CC0 - OpenAlex Data"
+    sensitivity_default: publico
+    campo_vigencia: "publication_year"
+    chunking_sugerido: "1 trabalho = 1 chunk, serializado em linguagem natural com metadados estruturados"
+    metadados_extras: [doi, publication_year, authors, institutions, funders, cited_by_count]
 
-  - base_id: faq_conversacional
+  - base_id: pareceres_conversacional
     natureza: conversacional
-    fonte: "https://exemplo.com/faq"
-    tipo_acesso: publico
-    arquivos:
-      - faq.json
+    fonte: "Base Sintética de Peer Review e Pareceres Editoriais"
+    acesso:
+      tipo: sintetico
+      arquivo_origem: "data/raw/sintetico/pareceres_peer_review.json"
+      gerador_seed: 42
+      rate_limit_seg: 0.5
+    selecao_deterministica: true
+    volume_alvo: 5
+    formato: json
+    licenca: "Uso Acadêmico Interno - Sintético"
+    sensitivity_default: interno
+    campo_vigencia: "data_parecer"
+    chunking_sugerido: "1 parecer completo por chunk com metadado de rodada"
+    metadados_extras: [protocolo_id, decisao, rodada, status_anonimato]
 
-  - base_id: relatorios_agregada
+  - base_id: metricas_agregada
     natureza: agregada
-    fonte: "https://exemplo.com/relatorios"
-    tipo_acesso: restrito
-    arquivos:
-      - relatorio.txt
+    fonte: "Indicadores Bibliométricos e Tópicos Acadêmicos OpenAlex"
+    acesso:
+      tipo: rest_api
+      endpoint: "https://api.openalex.org/topics"
+      params:
+        per_page: 20
+      paginacao: { campo: "page", tamanho: 20 }
+      rate_limit_seg: 1.0
+    selecao_deterministica: true
+    volume_alvo: 20
+    formato: json
+    licenca: "CC0 - OpenAlex"
+    sensitivity_default: publico
+    campo_vigencia: "ano_coleta"
+    chunking_sugerido: "1 tópico/indicador por chunk com estatísticas consolidadas"
+    metadados_extras: [topic_id, works_count, cited_by_count, subfield, field]

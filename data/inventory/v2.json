@@ -1,0 +1,100 @@
+{
+  "scenario_id": "cenario-3-pesquisa-academica",
+  "version": "v2",
+  "coletado_em": "2026-09-18T19:47:23.966879+00:00",
+  "manifest_hash": "sha256:3d95e4e526351a89a3974b1b12e9d5299f54a1395594e09e7c4408bafdd9f6ed",
+  "totais": {
+    "arquivos": 4,
+    "bytes": 3783694,
+    "falhas": 0
+  },
+  "por_base": [
+    {
+      "base_id": "editais_normativo",
+      "natureza": "normativa",
+      "arquivos": 1,
+      "formatos": {
+        "txt": 1
+      },
+      "bytes": 1146,
+      "volume_alvo": 2,
+      "divergencia_alvo": -1
+    },
+    {
+      "base_id": "producao_estruturada",
+      "natureza": "estruturada",
+      "arquivos": 1,
+      "formatos": {
+        "json": 1
+      },
+      "bytes": 3576779,
+      "volume_alvo": 25,
+      "divergencia_alvo": -24
+    },
+    {
+      "base_id": "pareceres_conversacional",
+      "natureza": "conversacional",
+      "arquivos": 1,
+      "formatos": {
+        "json": 1
+      },
+      "bytes": 3647,
+      "volume_alvo": 5,
+      "divergencia_alvo": -4
+    },
+    {
+      "base_id": "metricas_agregada",
+      "natureza": "agregada",
+      "arquivos": 1,
+      "formatos": {
+        "json": 1
+      },
+      "bytes": 202122,
+      "volume_alvo": 20,
+      "divergencia_alvo": -19
+    }
+  ],
+  "arquivos": [
+    {
+      "path": "raw\\v2\\editais_normativo\\resolucao_cns_510_2016.txt",
+      "base_id": "editais_normativo",
+      "tipo": "txt",
+      "bytes": 1146,
+      "sha256": "05469afaaa3f2f43c23ceac01dc376897f39161031bef10da00fa4d3acea79df",
+      "origem": "D:\\Programação\\Serratec\\Residencia RAG\\ia-generativa-e-rag-desafio-grupo-5-Cenario-3-Inteligencia-sobre-Pesquisa-Academica\\data\\raw\\sintetico\\resolucao_cns_510_2016.txt",
+      "coletado_em": "2026-09-18T19:47:18.566095+00:00",
+      "status": "ok"
+    },
+    {
+      "path": "raw\\v2\\producao_estruturada\\data.json",
+      "base_id": "producao_estruturada",
+      "tipo": "json",
+      "bytes": 3576779,
+      "sha256": "3af6945a72bdcff6258edca39656cecb082738871e909760088b01322d3759ae",
+      "origem": "https://api.openalex.org/works",
+      "coletado_em": "2026-09-18T19:47:21.794572+00:00",
+      "status": "ok"
+    },
+    {
+      "path": "raw\\v2\\pareceres_conversacional\\pareceres_peer_review.json",
+      "base_id": "pareceres_conversacional",
+      "tipo": "json",
+      "bytes": 3647,
+      "sha256": "93eda0007208e70363d1d3028e142cc0bd2800c60c9a80e805f871193fac5a21",
+      "origem": "D:\\Programação\\Serratec\\Residencia RAG\\ia-generativa-e-rag-desafio-grupo-5-Cenario-3-Inteligencia-sobre-Pesquisa-Academica\\data\\raw\\sintetico\\pareceres_peer_review.json",
+      "coletado_em": "2026-09-18T19:47:21.803072+00:00",
+      "status": "ok"
+    },
+    {
+      "path": "raw\\v2\\metricas_agregada\\data.json",
+      "base_id": "metricas_agregada",
+      "tipo": "json",
+      "bytes": 202122,
+      "sha256": "005a8ad3f31b75c1d89b5ac865bd4cfb6dee698924f4844d8f3ad75b1d54c37d",
+      "origem": "https://api.openalex.org/topics",
+      "coletado_em": "2026-09-18T19:47:23.965346+00:00",
+      "status": "ok"
+    }
+  ],
+  "falhas": []
+}

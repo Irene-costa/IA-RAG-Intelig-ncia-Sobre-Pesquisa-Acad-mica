@@ -1,0 +1,54 @@
+[
+  {
+    "chunk_id": "norm_cns510_art1",
+    "content": "Art. 1º Esta Resolução dispõe sobre as normas aplicáveis a pesquisas em Ciências Humanas e Sociais.",
+    "metadata": {
+      "chunk_id": "norm_cns510_art1",
+      "doc_type": "txt",
+      "source_file": "raw/v1/editais_normativo/resolucao_cns_510_2016.txt",
+      "base_id": "editais_normativo",
+      "natureza": "normativa",
+      "sensitivity": "publico",
+      "campo_vigencia": "2016-presente"
+    }
+  },
+  {
+    "chunk_id": "est_work_faperj_101",
+    "content": "Título: Detecção de Padrões em Séries Temporais\nAno: 2023\nAutores: Lucas Silva, Roberto Almeida\nFinanciamento: FAPERJ (Auxílio: E-26/2022)\nCitações: 45",
+    "metadata": {
+      "chunk_id": "est_work_faperj_101",
+      "doc_type": "json",
+      "source_file": "raw/v1/producao_estruturada/data.json",
+      "base_id": "producao_estruturada",
+      "natureza": "estruturada",
+      "sensitivity": "publico",
+      "campo_vigencia": "2023"
+    }
+  },
+  {
+    "chunk_id": "conv_proto_4821_r1",
+    "content": "Protocolo CEP-4821: Decisão: Rejeitado. Parecer técnico sobre bioética e dados secundários.",
+    "metadata": {
+      "chunk_id": "conv_proto_4821_r1",
+      "doc_type": "json",
+      "source_file": "raw/v1/pareceres_conversacional/pareceres_peer_review.json",
+      "base_id": "pareceres_conversacional",
+      "natureza": "conversacional",
+      "sensitivity": "interno",
+      "campo_vigencia": "2022-11-10"
+    }
+  },
+  {
+    "chunk_id": "agr_topic_ia_saude",
+    "content": "Tópico: Inteligência Artificial na Saúde\nObras: 12500\nCitações: 85400",
+    "metadata": {
+      "chunk_id": "agr_topic_ia_saude",
+      "doc_type": "json",
+      "source_file": "raw/v1/metricas_agregada/data.json",
+      "base_id": "metricas_agregada",
+      "natureza": "agregada",
+      "sensitivity": "publico",
+      "campo_vigencia": "2024"
+    }
+  }
+]

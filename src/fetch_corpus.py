@@ -154,24 +154,27 @@ def process_base(base: dict, version_dir: Path) -> tuple[list, list]:
 
     # 3. Base Sintética / Arquivo Local
     elif tipo_acesso in ["sintetico", "arquivo_local"]:
-        raw_path = acesso.get("caminho_local")
-        if raw_path and Path(raw_path).exists():
-            src = Path(raw_path)
-            dest = base_out_dir / src.name
+        raw_path = acesso.get("arquivo_origem") or acesso.get("caminho_local")
+        src_path = Path(raw_path) if raw_path else None
+        if src_path and not src_path.is_absolute():
+            src_path = BASE_DIR / src_path
+
+        if src_path and src_path.exists():
+            dest = base_out_dir / src_path.name
             if not dest.exists():
-                dest.write_bytes(src.read_bytes())
+                dest.write_bytes(src_path.read_bytes())
             arquivos_coletados.append({
                 "path": str(dest.relative_to(DATA_DIR)),
                 "base_id": base_id,
-                "tipo": base.get("formato", "txt"),
+                "tipo": base.get("formato", "json"),
                 "bytes": dest.stat().st_size,
                 "sha256": calculate_sha256(dest),
-                "origem": str(src),
+                "origem": str(src_path),
                 "coletado_em": datetime.now(timezone.utc).isoformat(),
                 "status": "ok"
             })
         else:
-            falhas.append({"origem": base_id, "erro": "Arquivo local não localizado", "status": "failed"})
+            falhas.append({"origem": base_id, "erro": f"Arquivo sintético/local não localizado em {raw_path}", "status": "failed"})
 
     return arquivos_coletados, falhas
 
@@ -295,7 +298,7 @@ def run_fetch(manifest_path: Path, version_name: str = "v1") -> dict:
     md_inv_path = BASE_DIR / "CORPUS_INVENTORY.md"
     save_markdown_inventory(inventory_data, md_inv_path)
 
-    print(f"[✓] Coleta concluída! Inventários salvos em:")
+    print(f"[OK] Coleta concluída! Inventários salvos em:")
     print(f"    - {json_inv_path.relative_to(BASE_DIR)}")
     print(f"    - {md_inv_path.relative_to(BASE_DIR)}")
 
@@ -336,7 +339,7 @@ def run_update(manifest_path: Path):
             modificados.add(k)
 
     diff_md = [
-        f"# Diff de Atualização do Corpus: {old_v_name} ➔ {new_v_name}",
+        f"# Diff de Atualização do Corpus: {old_v_name} -> {new_v_name}",
         f"- **Data da Atualização:** {datetime.now(timezone.utc).isoformat()}",
         f"- **Arquivos Adicionados ({len(entraram)}):**",
         "\n".join([f"  + `{f}`" for f in sorted(entraram)]) or "  (Nenhum)",
@@ -348,7 +351,7 @@ def run_update(manifest_path: Path):
 
     diff_file = INVENTORY_DIR / f"DIFF_{old_v_name}_{new_v_name}.md"
     diff_file.write_text("\n".join(diff_md), encoding="utf-8")
-    print(f"[✓] Diff de versão registrado em: {diff_file.relative_to(BASE_DIR)}")
+    print(f"[OK] Diff de versão registrado em: {diff_file.relative_to(BASE_DIR)}")
 
 
 def run_inventory_cmd(version_name: str):
@@ -363,7 +366,7 @@ def run_inventory_cmd(version_name: str):
 
     md_inv_path = BASE_DIR / "CORPUS_INVENTORY.md"
     save_markdown_inventory(inv_data, md_inv_path)
-    print(f"[✓] CORPUS_INVENTORY.md atualizado com os dados da versão `{version_name}`!")
+    print(f"[OK] CORPUS_INVENTORY.md atualizado com os dados da versão `{version_name}`!")
 
 
 def main():
