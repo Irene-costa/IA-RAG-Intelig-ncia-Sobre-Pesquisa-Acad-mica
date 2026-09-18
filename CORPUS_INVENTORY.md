@@ -1,7 +1,7 @@
 # Corpus Inventory - Versão v1
 - **Cenário:** `cenario-3`
-- **Data da Coleta:** 2026-09-16T18:28:42.654702+00:00
-- **Manifest Hash:** `sha256:11949fb713955cfb35667ddaff0db226f490d9e5f6130c990acb37e6279789d2`
+- **Data da Coleta:** 2026-09-18T18:57:23.430144+00:00
+- **Manifest Hash:** `sha256:bc8b51a67f78de766c1be878faaf4c5b6a66a9ccd0a53a9670441516ce525186`
 - **Total de Arquivos:** 0
 - **Tamanho Total:** 0.00 MB
 - **Falhas Registradas:** 0

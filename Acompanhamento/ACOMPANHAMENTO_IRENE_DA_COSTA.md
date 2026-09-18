@@ -16,5 +16,6 @@ Sincronizei no GitHub**: Realizei o commit de todas as alterações da estrutura
 Próximos passos:
 
 - Avançar para a Etapa 2: implementar o fatiamento (chunking) dos textos e a geração de embeddings para o índice vetorial.
+
     
 

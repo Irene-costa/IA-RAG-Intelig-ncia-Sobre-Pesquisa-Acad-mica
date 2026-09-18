@@ -3,10 +3,12 @@
 bases:
   - base_id: editais_normativo
     natureza: normativa
-    fonte: "https://exemplo.com/editais"
+    fonte: "https://arxiv.org/"
     tipo_acesso: publico
     arquivos:
-      - edital_01.pdf
+      - rag_survey.pdf
+      - 2404.10981.pdf
+      - 2405.07437.pdf
 
   - base_id: dados_estruturado
     natureza: estruturada
