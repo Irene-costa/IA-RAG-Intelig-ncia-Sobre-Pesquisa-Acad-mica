@@ -17,5 +17,16 @@ Próximos passos:
 
 - Avançar para a Etapa 2: implementar o fatiamento (chunking) dos textos e a geração de embeddings para o índice vetorial.
 
-    
+ # Encontro 3 - 18/09/2026
+
+## O que eu fiz hoje:
+- Selecionei e baixei os 3 artigos em PDF referentes ao Cenário 3 (Pesquisa Acadêmica / RAG).
+- Coloquei os arquivos PDF dentro do diretório `data/raw/v1/editais_normativo/`.
+- Configurei o arquivo `corpus_manifest.yaml` adicionando os nomes exatos dos 3 PDFs.
+- Executei o comando no terminal para coletar o corpus e gerar o inventário (`data/inventory/v1.json` e `CORPUS_INVENTORY.md`).
+- Fiz anotações no meu Notion pessoal.
+
+## Próxima etapa:
+- Iniciar a Etapa 2 do projeto: realizar o processamento e a divisão dos textos (chunking) dos arquivos PDF para a base de conhecimento RAG.
+
 
