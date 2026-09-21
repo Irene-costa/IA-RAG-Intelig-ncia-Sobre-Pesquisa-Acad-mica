@@ -2,6 +2,9 @@
 .env
 .env.local
 
+# Ambiente vistual do python
+.venv
+
 # Dados brutos coletados (Regra: data/raw/ não vai para o Git)
 data/raw/
 
