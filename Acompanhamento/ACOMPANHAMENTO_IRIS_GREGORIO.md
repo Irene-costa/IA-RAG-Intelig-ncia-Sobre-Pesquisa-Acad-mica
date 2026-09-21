@@ -6,24 +6,18 @@
 
 ### Relato individual — Iris Gregorio
 
-Neste dia, meu trabalho foi voltado ao entendimento da atividade proposta e à pesquisa dos documentos disponibilizados para o desenvolvimento do cenário. Analisei as informações do projeto para compreender os objetivos, requisitos e materiais que seriam utilizados nas etapas seguintes.
+Nesse dia fiquei mais na parte de entender a atividade e pesquisar os documentos disponíveis para o cenário. Fui analisando o material para entender melhor a proposta do projeto, os requisitos e quais documentos seriam importantes para as próximas etapas.
 
 ## 21/09/2026
 
 ### Relato individual — Iris Gregorio
 
-Hoje trabalhei na implementação de uma melhoria no pipeline do cenário 3, com foco na persistência do histórico das interações do RAG.
+Hoje fiquei responsável por fazer uma melhoria no pipeline, voltada para guardar o histórico das interações do RAG. Fiz a alteração no `src/pipeline.py` para salvar cada execução em um arquivo JSONL, com informações como a pergunta, a resposta, as fontes utilizadas, o tempo de execução e se houve recusa.
 
-Realizei a alteração no arquivo `src/pipeline.py` para que cada execução passe a registrar informações como `timestamp`, `run_id`, `query_id`, consulta realizada, resposta gerada, indicação de recusa, tempo de execução e fontes utilizadas. O histórico é armazenado em `data/history.jsonl`, mantendo os registros fora do versionamento do Git.
+Usei o ChatGPT para me ajudar a entender a estrutura do pipeline e pensar na melhor forma de fazer essa gravação do histórico. A partir disso, fiz os ajustes no código e validei a alteração no projeto.
 
-Também ajustei o estágio de feedback do pipeline para registrar que o histórico da interação foi persistido.
-
-Utilizei o ChatGPT como apoio durante a análise da estrutura existente do pipeline, na definição da forma de persistência e na revisão dos comandos Git. A implementação final foi aplicada e validada no repositório.
-
-Após a implementação, sincronizei o trabalho com o `main` utilizando `git pull --rebase`, validei a alteração e publiquei as mudanças no repositório remoto.
+Depois sincronizei meu trabalho com o `main` usando `git pull --rebase` e fiz o push das alterações para o repositório.
 
 ### Resumo do dia
 
-O grupo avançou na implementação do cenário 3 e foi integrada uma funcionalidade de persistência do histórico das interações do RAG. A alteração foi sincronizada com o estado mais recente do repositório e publicada no `main`.
-
-**Próximo passo:** continuar a implementação e validação das funcionalidades do cenário, conforme a divisão das atividades do grupo.
+Hoje consegui concluir a parte que estava trabalhando no pipeline e deixar a alteração sincronizada com o repositório. O próximo passo é continuar com as próximas tarefas definidas para o cenário.
