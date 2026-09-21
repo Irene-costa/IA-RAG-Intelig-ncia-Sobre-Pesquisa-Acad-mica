@@ -8,7 +8,7 @@
     - confirmação do tema a ser desenvolvido;
     - briefing inicial;
 
-# Encontro 3 21/09/2026
+# Encontro 4 21/09/2026
 
     - organização do ambiente virtual;
     - inclusão do /.venv ao gitignore;

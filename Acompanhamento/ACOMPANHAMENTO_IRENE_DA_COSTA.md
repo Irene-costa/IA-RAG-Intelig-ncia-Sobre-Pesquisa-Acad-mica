@@ -29,4 +29,14 @@ Próximos passos:
 ## Próxima etapa:
 - Iniciar a Etapa 2 do projeto: realizar o processamento e a divisão dos textos (chunking) dos arquivos PDF para a base de conhecimento RAG.
 
+# Encontro 4 - 21/09/2026
 
+## O que eu fiz hoje:
+- Alinhamento e Pesquisa do Escopo: Realizei pesquisas para alinhar a estrutura do Cenário 3 (Inteligência sobre Pesquisa Acadêmica) ao problema real de cruzamento de dados de fomento.
+- Mapeamento de Fontes Oficiais: Identifiquei e mapeei os repositórios oficiais de normas e editais de fomento (como FAPERJ e CNPq) para compor a base `editais_normativo`.
+- Revisão da Arquitetura do Corpus: Planejei a substituição do corpus preliminar pelos documentos normativos corretos que serão consumidos na Etapa 1.
+- Fiz anotações de pesquisas no Gemini no meu Notion pessoal.
+
+## Próxima etapa:
+- Baixar os editais reais em PDF (FAPERJ/CNPq) para a pasta `data/raw/v1/editais_normativo/`.
+- Atualizar o manifesto (`corpus_manifest.yaml`) e rodar o script de coleta para consolidar o inventário v1 no VS Code.
