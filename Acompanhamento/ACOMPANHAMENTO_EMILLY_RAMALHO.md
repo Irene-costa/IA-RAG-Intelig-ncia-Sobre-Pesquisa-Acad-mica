@@ -13,3 +13,11 @@
 * No início do desenvolvimento, foi criado um repositório para centralizar o projeto e disponibilizá-lo aos integrantes da equipe. Posteriormente, optou-se pela criação de uma organização no GitHub para facilitar o gerenciamento e a colaboração entre os membros.
 * Durante o dia, foi identificado um problema de acesso ao repositório, que apresentava a mensagem “Page Not Found” ao ser acessado.
 
+# Encontro 4 21/09/26
+
+* Fiz um levantamento de documentos relacionados à Inteligência Artificial e à pesquisa acadêmica, buscando materiais que pudessem contribuir para o enriquecimento da base utilizada no RAG.
+* Após a pesquisa, selecionei os conteúdos pertinentes e realizei a organização dos arquivos na pasta `data/raw/v1/editais_normativo`, deixando os documentos estruturados para dar continuidade ao processo de alimentação da base.
+
+
+
+
