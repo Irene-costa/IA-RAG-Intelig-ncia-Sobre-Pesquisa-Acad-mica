@@ -7,3 +7,11 @@
     - grupo do whatsapp;
     - confirmação do tema a ser desenvolvido;
     - briefing inicial;
+
+# Encontro 3 21/09/2026
+
+    - organização do ambiente virtual;
+    - inclusão do /.venv ao gitignore;
+    - pesquisa de dados para alimentar o projeto;
+    - reclone do projeto com ajustes gerais normalizados;
+    - instalação das dependências;
