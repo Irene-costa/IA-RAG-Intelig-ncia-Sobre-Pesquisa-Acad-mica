@@ -13,3 +13,9 @@
     Hoje nossa equipe estava reduzida, apenas comigo e a Irene inicialmente. Nós conversamos e combinamos de separar algumas tarefas. Eu fiquei encarregado por tentar fazer a estrutura incial do desafio, e solicitei a Irene para fazer pesquisas dos arquivos necessários. Depois de algum tempo, a Iris começou a ajudar ela com essa tarefa.
     Consegui avançar um pouco na estrutura do projeto, tive algumas dificuldades mas com algumas pesquisas e ajuda da IA consegui avançar. Basicamente criei as estruturas obrigatórias e arquivos necessários. Não conseguimos avançar mais do que isso hoje.
     O próximo passo é começar a implementar o restante dos arquivos necessários. E reorganizar as tarefas quando tivermos todos os membros do grupo presentes.
+
+
+# Encontro 4 21/09/2026
+    Hoje terminei de estruturar a base do projeto, implementei toda a base obrigatória. Conversei com todos e destribuimos tarefas, todos ficaram pesquisando e conseguindo mais arquivos para a nossa base de dados do RAG. 
+    Losgo após finalizar a base eu ajudei nas pesquisas e organizei como seria o próximo passo para extrair as informações dos PDFS que conseguimos. Discutimos um pouco sobre os próximos passos do projeto e organizamos os próximos passos.
+    Ainda não testamos se os arquivos estão sendo baixados corretamente, nem se a estrutura do projeto está correta. No próximo encontro essas serão as primeiras coisas que iremos fazer. 
