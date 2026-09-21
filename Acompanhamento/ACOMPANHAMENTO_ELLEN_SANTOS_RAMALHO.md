@@ -15,7 +15,7 @@
 - Foram criados os arquivos fetch_corpus, obs e schema.
 - Foi criado o arquivo requirements.txt para organizar as dependências do projeto.
 
-#Encontro 4 21/09/26
+# Encontro 4 21/09/26
 
 * Realizei pesquisas por documentos relacionados à Inteligência Artificial e à pesquisa acadêmica para ampliar a base de informações utilizada no RAG.
 * Selecionei os documentos relevantes e organizei os arquivos na pasta `data/raw/v1/editais_normativo`, deixando-os preparados para as próximas etapas do projeto.
