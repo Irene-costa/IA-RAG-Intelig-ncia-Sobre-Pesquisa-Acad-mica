@@ -29,3 +29,5 @@ RATE_LIMIT_PAUSE_SEC = float(os.getenv("RATE_LIMIT_PAUSE_SEC", "10.0"))
 def get_openai_client() -> OpenAI:
     """Retorna cliente OpenAI configurado para o endpoint ECOA."""
     return OpenAI(base_url=OLLAMA_URL, api_key=OLLAMA_API_KEY)
+
+RERANKER_MODEL = os.getenv('RERANKER_MODEL', 'cross-encoder/ms-marco-MiniLM-L-6-v2')

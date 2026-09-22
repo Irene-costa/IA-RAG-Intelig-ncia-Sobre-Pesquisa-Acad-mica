@@ -1,4 +1,4 @@
-import json
+﻿import json
 from pathlib import Path
 from typing import List
 from src.schema import DocumentChunk, ChunkMetadata, BaseNatureza, SensitivityLevel
@@ -10,7 +10,7 @@ CHUNKS_FILE = DATA_DIR / "chunks_v1.json"
 
 
 def chunk_text_by_paragraphs(text: str, chunk_size: int = 400, overlap: int = 50) -> List[str]:
-    """Divide texto por quebras de parágrafos/artigos mantendo overlap."""
+    """Divide texto por quebras de parÃ¡grafos/artigos mantendo overlap."""
     paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
     chunks = []
     current_chunk = []
@@ -65,92 +65,123 @@ def ingest_editais_normativo() -> List[DocumentChunk]:
 
 
 def ingest_producao_estruturada() -> List[DocumentChunk]:
-    """Processa metadados estruturados de artigos do OpenAlex."""
+    """Processa metadados estruturados de artigos do OpenAlex e corpus sintético."""
     chunks = []
-    file_path = RAW_DIR / "producao_estruturada" / "data.json"
-    if not file_path.exists():
-        return chunks
+    base_dir = RAW_DIR / "producao_estruturada"
 
-    with open(file_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    arquivos = [
+        base_dir / "data.json",
+        base_dir / "sintetico_programa.json",
+    ]
 
-    results = data.get("results", []) if isinstance(data, dict) else data
+    for file_path in arquivos:
+        if not file_path.exists():
+            continue
 
-    for idx, item in enumerate(results):
-        work_id = item.get("id", f"work_{idx}").split("/")[-1]
-        title = item.get("title") or "Sem título"
-        pub_year = item.get("publication_year")
-        cited_by = item.get("cited_by_count", 0)
-        doi = item.get("doi", "")
+        with open(file_path, "r", encoding="utf-8-sig") as f:
+            data = json.load(f)
 
-        # Autores e instituições
-        authors_list = []
-        institutions_list = []
-        for authorship in item.get("authorships", []):
-            author_name = authorship.get("author", {}).get("display_name")
-            if author_name:
-                authors_list.append(author_name)
-            for inst in authorship.get("institutions", []):
-                inst_name = inst.get("display_name")
-                if inst_name and inst_name not in institutions_list:
-                    institutions_list.append(inst_name)
+        results = data.get("results", []) if isinstance(data, dict) else data
+        origem = "sintetico" if file_path.name == "sintetico_programa.json" else "openalex"
 
-        # Financiadores / Grants
-        grants_list = []
-        for grant in item.get("grants", []):
-            funder = grant.get("funder_display_name")
-            award = grant.get("award_id")
-            grants_list.append(f"{funder} (Auxílio: {award})")
+        for idx, item in enumerate(results):
+            work_id = item.get("id", f"work_{idx}").split("/")[-1]
+            title = item.get("title") or "Sem título"
+            pub_year = item.get("publication_year")
+            cited_by = item.get("cited_by_count", 0)
+            doi = item.get("doi", "")
 
-        # Abstract
-        abstract_idx = item.get("abstract_inverted_index")
-        abstract_text = ""
-        if abstract_idx:
-            # Reconstrói abstract invertido do OpenAlex
-            word_pos = []
-            for word, positions in abstract_idx.items():
-                for pos in positions:
-                    word_pos.append((pos, word))
-            word_pos.sort()
-            abstract_text = " ".join([w for _, w in word_pos])
+            authors_list = []
+            institutions_list = []
 
-        content = (
-            f"Título: {title}\n"
-            f"Ano de Publicação: {pub_year}\n"
-            f"Autores: {', '.join(authors_list[:5])}\n"
-            f"Instituições: {', '.join(institutions_list[:3])}\n"
-            f"Financiamento/Grants: {', '.join(grants_list) if grants_list else 'Não declarado'}\n"
-            f"Total de Citações: {cited_by}\n"
-            f"DOI: {doi}\n"
-            f"Resumo: {abstract_text[:600]}"
-        )
+            for authorship in item.get("authorships", []):
+                author_name = authorship.get("author", {}).get("display_name")
+                if author_name:
+                    authors_list.append(author_name)
 
-        chunk_id = f"est_{work_id}"
-        metadata = ChunkMetadata(
-            chunk_id=chunk_id,
-            doc_type="json",
-            source_file=str(file_path.relative_to(DATA_DIR)),
-            base_id="producao_estruturada",
-            natureza=BaseNatureza.ESTRUTURADA,
-            sensitivity=SensitivityLevel.PUBLICO,
-            campo_vigencia=str(pub_year) if pub_year else None,
-            extras={
-                "work_id": work_id,
-                "title": title,
-                "year": pub_year,
-                "cited_by_count": cited_by,
-                "authors": authors_list[:5],
-                "institutions": institutions_list[:3],
-                "has_funding": bool(grants_list)
-            }
-        )
-        chunks.append(DocumentChunk(chunk_id=chunk_id, content=content, metadata=metadata))
+                for inst in authorship.get("institutions", []):
+                    inst_name = inst.get("display_name")
+                    if inst_name and inst_name not in institutions_list:
+                        institutions_list.append(inst_name)
+
+            grants_list = []
+
+            for grant in item.get("grants", []):
+                funder = grant.get("funder_display_name")
+                award = grant.get("award_id")
+                if funder:
+                    grants_list.append(
+                        f"{funder} (Auxílio: {award})" if award else funder
+                    )
+
+            if not grants_list:
+                for funder in item.get("funders", []):
+                    funder_name = funder.get("display_name")
+                    if funder_name:
+                        grants_list.append(funder_name)
+
+            abstract_idx = item.get("abstract_inverted_index")
+            abstract_text = ""
+
+            if abstract_idx:
+                word_pos = []
+                for word, positions in abstract_idx.items():
+                    for pos in positions:
+                        word_pos.append((pos, word))
+                word_pos.sort()
+                abstract_text = " ".join(w for _, w in word_pos)
+
+            content = (
+                f"Título: {title}\n"
+                f"Ano de Publicação: {pub_year}\n"
+                f"Autores: {', '.join(authors_list[:5])}\n"
+                f"Instituições: {', '.join(institutions_list[:3])}\n"
+                f"Financiamento/Grants: "
+                f"{', '.join(grants_list) if grants_list else 'Não declarado'}\n"
+                f"Total de Citações: {cited_by}\n"
+                f"DOI: {doi}\n"
+                f"Resumo: {abstract_text[:600]}"
+            )
+
+            chunk_id = f"est_{work_id}"
+
+            metadata = ChunkMetadata(
+                chunk_id=chunk_id,
+                doc_type="json",
+                source_file=str(file_path.relative_to(DATA_DIR)),
+                base_id="producao_estruturada",
+                natureza=BaseNatureza.ESTRUTURADA,
+                sensitivity=SensitivityLevel.PUBLICO,
+                campo_vigencia=str(pub_year) if pub_year else None,
+                extras={
+                    "work_id": work_id,
+                    "title": title,
+                    "year": pub_year,
+                    "cited_by_count": cited_by,
+                    "authors": authors_list[:5],
+                    "institutions": institutions_list[:3],
+                    "has_funding": bool(grants_list),
+                    "origem": origem,
+                    "programa_id": (
+                        "programa_saude_digital"
+                        if origem == "sintetico"
+                        else None
+                    ),
+                }
+            )
+
+            chunks.append(
+                DocumentChunk(
+                    chunk_id=chunk_id,
+                    content=content,
+                    metadata=metadata
+                )
+            )
 
     return chunks
 
-
 def ingest_pareceres_conversacional() -> List[DocumentChunk]:
-    """Processa pareceres e registros de revisão por pares."""
+    """Processa pareceres e registros de revisÃ£o por pares."""
     chunks = []
     file_path = RAW_DIR / "pareceres_conversacional" / "pareceres_peer_review.json"
     if not file_path.exists():
@@ -171,11 +202,11 @@ def ingest_pareceres_conversacional() -> List[DocumentChunk]:
         content = (
             f"Protocolo: {proto_id}\n"
             f"Projeto: {titulo}\n"
-            f"Área: {p.get('area', '')}\n"
+            f"Ãrea: {p.get('area', '')}\n"
             f"Data: {data_p} ({rodada})\n"
-            f"Decisão Editorial: {decisao}\n"
-            f"Parecer Técnico: {texto}\n"
-            f"Observação Interna: {interno}"
+            f"DecisÃ£o Editorial: {decisao}\n"
+            f"Parecer TÃ©cnico: {texto}\n"
+            f"ObservaÃ§Ã£o Interna: {interno}"
         )
 
         chunk_id = f"conv_{proto_id.replace('-', '_')}_{idx:02d}"
@@ -200,7 +231,7 @@ def ingest_pareceres_conversacional() -> List[DocumentChunk]:
 
 
 def ingest_metricas_agregada() -> List[DocumentChunk]:
-    """Processa tópicos e indicadores bibliométricos do OpenAlex."""
+    """Processa tÃ³picos e indicadores bibliomÃ©tricos do OpenAlex."""
     chunks = []
     file_path = RAW_DIR / "metricas_agregada" / "data.json"
     if not file_path.exists():
@@ -213,7 +244,7 @@ def ingest_metricas_agregada() -> List[DocumentChunk]:
 
     for idx, topic in enumerate(results):
         topic_id = topic.get("id", f"topic_{idx}").split("/")[-1]
-        name = topic.get("display_name", "Tópico")
+        name = topic.get("display_name", "TÃ³pico")
         works_count = topic.get("works_count", 0)
         cited_count = topic.get("cited_by_count", 0)
         subfield = topic.get("subfield", {}).get("display_name", "")
@@ -221,11 +252,11 @@ def ingest_metricas_agregada() -> List[DocumentChunk]:
         domain = topic.get("domain", {}).get("display_name", "")
 
         content = (
-            f"Tópico de Pesquisa: {name}\n"
-            f"Grande Área: {domain} -> {field_name} -> {subfield}\n"
+            f"TÃ³pico de Pesquisa: {name}\n"
+            f"Grande Ãrea: {domain} -> {field_name} -> {subfield}\n"
             f"Total de Obras Indexadas: {works_count:,}\n"
-            f"Total de Citações Acumuladas: {cited_count:,}\n"
-            f"Impacto Médio de Citações por Obra: {(cited_count/works_count):.2f}" if works_count > 0 else "0"
+            f"Total de CitaÃ§Ãµes Acumuladas: {cited_count:,}\n"
+            f"Impacto MÃ©dio de CitaÃ§Ãµes por Obra: {(cited_count/works_count):.2f}" if works_count > 0 else "0"
         )
 
         chunk_id = f"agr_{topic_id}"
@@ -252,7 +283,7 @@ def ingest_metricas_agregada() -> List[DocumentChunk]:
 
 
 def run_ingest() -> List[DocumentChunk]:
-    """Executa a ingestão completa de todas as bases e salva em data/chunks_v1.json."""
+    """Executa a ingestÃ£o completa de todas as bases e salva em data/chunks_v1.json."""
     all_chunks: List[DocumentChunk] = []
     
     all_chunks.extend(ingest_editais_normativo())
@@ -266,9 +297,12 @@ def run_ingest() -> List[DocumentChunk]:
     with open(CHUNKS_FILE, "w", encoding="utf-8") as f:
         json.dump(serialized, f, ensure_ascii=False, indent=2)
 
-    print(f"[OK] Ingestão concluída! Total de {len(all_chunks)} chunks gerados e salvos em {CHUNKS_FILE.relative_to(BASE_DIR)}")
+    print(f"[OK] IngestÃ£o concluÃ­da! Total de {len(all_chunks)} chunks gerados e salvos em {CHUNKS_FILE.relative_to(BASE_DIR)}")
     return all_chunks
 
 
 if __name__ == "__main__":
     run_ingest()
+
+
+

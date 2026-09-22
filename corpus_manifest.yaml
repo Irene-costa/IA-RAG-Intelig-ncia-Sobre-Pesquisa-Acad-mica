@@ -1,20 +1,22 @@
-scenario_id: cenario-3-pesquisa-academica
-version: "2026-09-18"              # data do congelamento do corpus
+﻿scenario_id: cenario-3-pesquisa-academica
+version: "2026-09-18"
 description: "Corpus para Inteligência sobre Pesquisa Acadêmica (Editais de Fomento/Ética, Metadados OpenAlex, Pareceres de Peer Review e Métricas Bibliométricas)"
 
 bases:
   - base_id: editais_normativo
-    natureza: normativa            # normativa | estruturada | conversacional | agregada
-    fonte: "Editais FAPERJ / CNPq e Resoluções CNS/CONEP"
+    natureza: normativa
+    fonte: "FAPERJ / CNPq / CONEP"
     acesso:
-      tipo: arquivo_local          # rest_api | http_pdf | arquivo_local | sintetico
-      caminho_local: "data/raw/sintetico/resolucao_cns_510_2016.txt"
+      tipo: http_pdf
+      urls:
+        - "https://www.faperj.br/rp/downloads/Edital_FAPERJ_N%C2%BA_12_2024___INOVATRIP_em_16_de_maio.pdf"
+        - "https://www.gov.br/conselho-nacional-de-saude/pt-br/atos-normativos/resolucoes/2016/resolucao-no-510.pdf/view"
       rate_limit_seg: 1.0
-    selecao_deterministica: true   # mesmo manifesto => mesmo corpus
-    volume_alvo: 2                 # quantidade esperada de arquivos
-    formato: txt
+    selecao_deterministica: true
+    volume_alvo: 2
+    formato: pdf
     licenca: "Domínio Público / Governo Federal & Estadual"
-    sensitivity_default: publico   # publico | interno | restrito
+    sensitivity_default: publico
     campo_vigencia: "data_publicacao"
     chunking_sugerido: "Split por artigos, seções e cláusulas com overlap"
     metadados_extras: [orgao_emissor, numero_norma, ano, tema]

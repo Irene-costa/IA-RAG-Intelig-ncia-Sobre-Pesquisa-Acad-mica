@@ -149,8 +149,54 @@ class VectorIndex:
         self._load_cache()
         return True
 
+    def _matches_filters(
+        self,
+        chunk: DocumentChunk,
+        filters: Dict[str, object] = None,
+    ) -> bool:
+        """Verifica se um chunk atende aos filtros estruturados."""
+        if not filters:
+            return True
+
+        extras = chunk.metadata.extras or {}
+
+        for key, expected in filters.items():
+            if expected is None:
+                continue
+
+            if key == "ano":
+                value = extras.get("year")
+                if value is None:
+                    value = extras.get("publication_year")
+
+                if value is None:
+                    return False
+
+                try:
+                    if int(value) != int(expected):
+                        return False
+                except (TypeError, ValueError):
+                    return False
+            else:
+                value = extras.get(key)
+
+                if value is None:
+                    return False
+
+                if isinstance(value, list):
+                    if expected not in value:
+                        return False
+                elif str(value).lower() != str(expected).lower():
+                    return False
+
+        return True
+
     def search_dense(
-        self, query: str, top_k: int = 10, base_filter: List[str] = None
+        self,
+        query: str,
+        top_k: int = 10,
+        base_filter: List[str] = None,
+        structured_filters: Dict[str, object] = None,
     ) -> List[Tuple[DocumentChunk, float]]:
         """Busca densa por similaridade de cosseno com suporte a filtro de base."""
         if len(self.chunks) == 0:
@@ -181,7 +227,11 @@ class VectorIndex:
         return ranked
 
     def search_bm25(
-        self, query: str, top_k: int = 10, base_filter: List[str] = None
+        self,
+        query: str,
+        top_k: int = 10,
+        base_filter: List[str] = None,
+        structured_filters: Dict[str, object] = None,
     ) -> List[Tuple[DocumentChunk, float]]:
         """Busca esparsa por BM25 com suporte a filtro de base."""
         if not self.bm25 or len(self.chunks) == 0:
