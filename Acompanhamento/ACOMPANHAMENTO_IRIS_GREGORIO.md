@@ -21,3 +21,15 @@ Depois sincronizei meu trabalho com o `main` usando `git pull --rebase` e fiz o 
 ### Resumo do dia
 
 Hoje consegui concluir a parte que estava trabalhando no pipeline e deixar a alteração sincronizada com o repositório. O próximo passo é continuar com as próximas tarefas definidas para o cenário.
+
+## 23/09/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje continuei trabalhando na parte técnica do RAG. Fiz alguns ajustes na ingestão das bases estruturada e agregada, principalmente nos metadados de publicação e financiamento, e implementei os filtros por metadados/ano.
+
+Também configurei o Cross-Encoder para o reranking e corrigi a recuperação cross-source, para garantir que as consultas que precisam de mais de uma base realmente recuperem informações das bases envolvidas.
+
+Depois fiz os testes no cenário da Profa. Ana, sobre trabalhos de saúde digital e financiamento externo, e a recuperação funcionou corretamente com as bases necessárias.
+
+Por fim, fiz o commit `599c59f` com as alterações e subi minha parte para o GitHub.
