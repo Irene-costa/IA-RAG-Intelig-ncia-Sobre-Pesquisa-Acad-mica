@@ -19,3 +19,12 @@
 
 * Realizei pesquisas por documentos relacionados à Inteligência Artificial e à pesquisa acadêmica para ampliar a base de informações utilizada no RAG.
 * Selecionei os documentos relevantes e organizei os arquivos na pasta `data/raw/v1/editais_normativo`, deixando-os preparados para as próximas etapas do projeto.
+
+# Encontro 5 23/09/2026
+
+* A Iris realizou algumas alterações e implementações no código fora do horário de aula.
+* Realizei a execução e validação dos arquivos e funcionalidades desenvolvidos pelo terminal e identifiquei alguns erros inicialmente na minha máquina.
+* Instalei e configurei as dependências necessárias para executar o projeto corretamente no meu ambiente.
+* Após os ajustes, refiz a execução dos testes e identifiquei que os problemas iniciais estavam relacionados principalmente à configuração e ao ambiente da minha máquina.
+* As funcionalidades testadas estão executando corretamente, sem apresentar os erros identificados inicialmente.
+* A execução está ocorrendo de forma mais lenta na minha máquina, possivelmente devido ao uso simultâneo da mesma API por outras pessoas, o que pode estar sobrecarregando o ambiente.
