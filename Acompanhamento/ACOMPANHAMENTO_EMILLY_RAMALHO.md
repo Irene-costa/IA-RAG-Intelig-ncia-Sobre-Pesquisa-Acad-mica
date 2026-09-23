@@ -18,6 +18,14 @@
 * Fiz um levantamento de documentos relacionados à Inteligência Artificial e à pesquisa acadêmica, buscando materiais que pudessem contribuir para o enriquecimento da base utilizada no RAG.
 * Após a pesquisa, selecionei os conteúdos pertinentes e realizei a organização dos arquivos na pasta `data/raw/v1/editais_normativo`, deixando os documentos estruturados para dar continuidade ao processo de alimentação da base.
 
+# Encontro 4 23/09/26
+
+* Foram realizadas algumas alterações e implementações no código, além de ajustes necessários no projeto.
+* Realizei os testes dos arquivos e funcionalidades desenvolvidos.
+* Instalei e configurei as dependências necessárias para executar o projeto corretamente no meu ambiente.
+* Após os ajustes, refiz os testes e as funcionalidades apresentaram o comportamento esperado.
+* Também identifiquei que a execução dos testes está ocorrendo de forma mais lenta, possivelmente devido à utilização simultânea do ambiente/vídeo da PUC-Rio por várias pessoas, o que pode estar gerando maior demanda de recursos e impactando o tempo de execução.
+
 
 
 
