@@ -19,3 +19,8 @@
     Hoje terminei de estruturar a base do projeto, implementei toda a base obrigatória. Conversei com todos e destribuimos tarefas, todos ficaram pesquisando e conseguindo mais arquivos para a nossa base de dados do RAG. 
     Losgo após finalizar a base eu ajudei nas pesquisas e organizei como seria o próximo passo para extrair as informações dos PDFS que conseguimos. Discutimos um pouco sobre os próximos passos do projeto e organizamos os próximos passos.
     Ainda não testamos se os arquivos estão sendo baixados corretamente, nem se a estrutura do projeto está correta. No próximo encontro essas serão as primeiras coisas que iremos fazer. 
+
+# Encontro 5 23/09/2026
+    A Iris fez bastante melhorias no código fora de aula, eu verifiquei hoje tudo que ela fez e fui testar, nos testes acabamos tendo alguns problemas. Eu tentei fazer ajustes no código e com os ajustes ficou melhor, consegui testar o app.cli com perguntas Normativa, Cross-Source, Agregada, Guardrail de E-mail e Guardrail Ético, todos parecem ter funcionado como deveriam em todos os testes que eu fiz. 
+    Testei também unittest discover tests, benchmark e pipeline, apesar da demora do servidor por ter muitas requisições simultaneas, houve retorno positivo. 
+    Consegui fazer o rag considerar os arquivos .pdf que anteriormente ele estava ignorando para gerar as respostas.
