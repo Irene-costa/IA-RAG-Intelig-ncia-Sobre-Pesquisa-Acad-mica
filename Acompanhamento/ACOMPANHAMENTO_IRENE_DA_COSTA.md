@@ -40,3 +40,16 @@ Próximos passos:
 ## Próxima etapa:
 - Baixar os editais reais em PDF (FAPERJ/CNPq) para a pasta `data/raw/v1/editais_normativo/`.
 - Atualizar o manifesto (`corpus_manifest.yaml`) e rodar o script de coleta para consolidar o inventário v1 no VS Code.
+
+# Encontro 5 - 23/09/2026
+
+## O que eu fiz hoje:
+
+- Testes de Ingestão e Processamento: Executei o script de ingestão (`python -m src.ingest`), gerando com sucesso 2145 chunks salvos em `data/chunks_v1.json`.
+- Diagnóstico do Pipeline de Embeddings: Iniciei a execução da geração de embeddings (`src.pipeline`/`src.index`), identificando um travamento por timeout na conexão da API (`Connection error` / parada na requisição HTTP).
+- Ajuste de Parâmetros de Execução: Mapeei a necessidade de otimizar o tamanho do lote (`BATCH_SIZE`) e o tempo de pausa (`RATE_LIMIT_PAUSE_SEC`) para evitar estouro de limite de requisições.
+
+## Próxima etapa:
+
+- Ajustar os parâmetros no arquivo de configuração (`config.py` / `.env`) reduzindo o lote para requisições menores.
+- Rodar novamente o script de indexação e validar a suíte de testes com `python -m pytest`.
