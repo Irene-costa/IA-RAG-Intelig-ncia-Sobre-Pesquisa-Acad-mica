@@ -1,14 +1,31 @@
 import sys
 from src.pipeline import AcademicRAGPipeline
 
-def main():
-    print("=" * 70)
-    print("  Inteligência sobre Pesquisa Acadêmica · Adaptive RAG")
-    print("  Residência TIC em Trilhas · PUC-Rio / ECOA (Cenário 3)")
-    print("=" * 70)
-    print("Digite sua pergunta ou 'sair' para encerrar.\n")
+# Garante compatibilidade de encoding UTF-8 no Windows (evita erro com emojis e acentos)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
+
+def safe_print(text: str = ""):
+    """Imprime texto de forma segura em qualquer terminal Windows."""
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        print(text.encode("ascii", "replace").decode("ascii"))
+
+
+def main():
+    safe_print("=" * 70)
+    safe_print("  Inteligência sobre Pesquisa Acadêmica · Adaptive RAG")
+    safe_print("  Residência TIC em Trilhas · PUC-Rio / ECOA (Cenário 3)")
+    safe_print("=" * 70)
+    safe_print("Digite sua pergunta ou 'sair' para encerrar.\n")
+
+    safe_print("[*] Carregando índices locais...")
     pipeline = AcademicRAGPipeline()
+    safe_print("[OK] Pipeline pronto para receber perguntas!\n")
 
     while True:
         try:
@@ -16,34 +33,35 @@ def main():
             if not query:
                 continue
             if query.lower() in ["sair", "exit", "quit"]:
-                print("[*] Encerrando sessão. Até logo!")
+                safe_print("[*] Encerrando sessão. Até logo!")
                 break
 
-            print("[*] Processando pergunta através do pipeline Adaptive RAG...")
+            safe_print("[*] Processando pergunta através do pipeline Adaptive RAG...")
             response = pipeline.run(query)
 
-            print("\n" + "-" * 70)
-            print("  RESPOSTA GERADA")
-            print("-" * 70)
-            print(response.answer)
+            safe_print("\n" + "-" * 70)
+            safe_print("  RESPOSTA GERADA")
+            safe_print("-" * 70)
+            safe_print(response.answer)
 
             if response.is_refusal:
-                print(f"\n[!] AVISO DE ÉTICA/GUARDRAILS: {response.refusal_reason}")
+                safe_print(f"\n[!] AVISO DE ÉTICA/GUARDRAILS: {response.refusal_reason}")
 
             if response.sources_used:
-                print("\n" + "-" * 70)
-                print(f"  FONTES CONSULTADAS ({len(response.sources_used)})")
-                print("-" * 70)
+                safe_print("\n" + "-" * 70)
+                safe_print(f"  FONTES CONSULTADAS ({len(response.sources_used)})")
+                safe_print("-" * 70)
                 for s in response.sources_used:
-                    print(f"  • Base: {s['base_id']} | Natureza: {s['natureza']} | Chunk: {s['chunk_id']}")
+                    safe_print(f"  • Base: {s['base_id']} | Natureza: {s['natureza']} | Chunk: {s['chunk_id']}")
 
-            print(f"\n[Latência Total: {response.latency_ms} ms]")
+            safe_print(f"\n[Latência Total: {response.latency_ms} ms]")
 
         except KeyboardInterrupt:
-            print("\n[*] Sessão interrompida.")
+            safe_print("\n[*] Sessão interrompida.")
             break
         except Exception as e:
-            print(f"[Erro] Falha ao processar a pergunta: {e}")
+            safe_print(f"[Erro] Falha ao processar a pergunta: {e}")
+
 
 if __name__ == "__main__":
     main()

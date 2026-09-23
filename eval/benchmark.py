@@ -68,6 +68,7 @@ def run_benchmark():
             "answer": res.answer,
             "latencia_ms": lat
         })
+        time.sleep(2)
 
     BENCHMARK_RESULTS.parent.mkdir(parents=True, exist_ok=True)
     with open(BENCHMARK_RESULTS, "w", encoding="utf-8") as f:

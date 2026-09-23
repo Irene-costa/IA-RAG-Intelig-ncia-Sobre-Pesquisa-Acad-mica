@@ -154,27 +154,32 @@ def process_base(base: dict, version_dir: Path) -> tuple[list, list]:
 
     # 3. Base Sintética / Arquivo Local
     elif tipo_acesso in ["sintetico", "arquivo_local"]:
-        raw_path = acesso.get("arquivo_origem") or acesso.get("caminho_local")
-        src_path = Path(raw_path) if raw_path else None
-        if src_path and not src_path.is_absolute():
-            src_path = BASE_DIR / src_path
+        paths_list = acesso.get("arquivos_locais", [])
+        if not paths_list:
+            raw_single = acesso.get("arquivo_origem") or acesso.get("caminho_local")
+            if raw_single:
+                paths_list = [raw_single]
 
-        if src_path and src_path.exists():
-            dest = base_out_dir / src_path.name
-            if not dest.exists():
+        for raw_path in paths_list:
+            src_path = Path(raw_path)
+            if not src_path.is_absolute():
+                src_path = BASE_DIR / src_path
+
+            if src_path.exists():
+                dest = base_out_dir / src_path.name
                 dest.write_bytes(src_path.read_bytes())
-            arquivos_coletados.append({
-                "path": str(dest.relative_to(DATA_DIR)),
-                "base_id": base_id,
-                "tipo": base.get("formato", "json"),
-                "bytes": dest.stat().st_size,
-                "sha256": calculate_sha256(dest),
-                "origem": str(src_path),
-                "coletado_em": datetime.now(timezone.utc).isoformat(),
-                "status": "ok"
-            })
-        else:
-            falhas.append({"origem": base_id, "erro": f"Arquivo sintético/local não localizado em {raw_path}", "status": "failed"})
+                arquivos_coletados.append({
+                    "path": str(dest.relative_to(DATA_DIR)),
+                    "base_id": base_id,
+                    "tipo": src_path.suffix.replace(".", "") or base.get("formato", "json"),
+                    "bytes": dest.stat().st_size,
+                    "sha256": calculate_sha256(dest),
+                    "origem": str(src_path),
+                    "coletado_em": datetime.now(timezone.utc).isoformat(),
+                    "status": "ok"
+                })
+            else:
+                falhas.append({"origem": base_id, "erro": f"Arquivo local não localizado em {raw_path}", "status": "failed"})
 
     return arquivos_coletados, falhas
 

@@ -45,28 +45,34 @@ def get_embedding_with_cache(
             batch_texts = texts_to_fetch[batch_start : batch_start + BATCH_SIZE]
             batch_indices = indices_to_fetch[batch_start : batch_start + BATCH_SIZE]
 
-            try:
-                # Sanitiza textos vazios ou problemáticos
-                clean_batch = [t if t.strip() else " " for t in batch_texts]
-                response = client.embeddings.create(
-                    model=EMBEDDING_MODEL, input=clean_batch
-                )
+            success = False
+            for attempt in range(2):
+                try:
+                    # Sanitiza textos vazios ou problemáticos
+                    clean_batch = [t if t.strip() else " " for t in batch_texts]
+                    response = client.embeddings.create(
+                        model=EMBEDDING_MODEL, input=clean_batch, timeout=30
+                    )
 
-                for orig_idx, emb_item in zip(batch_indices, response.data):
-                    emb_vector = emb_item.embedding
-                    cache[texts[orig_idx]] = emb_vector
-                    embeddings[orig_idx] = emb_vector
+                    for orig_idx, emb_item in zip(batch_indices, response.data):
+                        emb_vector = emb_item.embedding
+                        cache[texts[orig_idx]] = emb_vector
+                        embeddings[orig_idx] = emb_vector
+                    success = True
+                    break
+                except Exception as e:
+                    if attempt == 0:
+                        time.sleep(2)
+                    else:
+                        print(f"[!] Aviso: Embeddings remotos ocupados ({e}). Usando fallback léxico BM25.")
 
-                # Pausa para respeitar o rate-limit do servidor compartilhado
-                if batch_start + BATCH_SIZE < len(texts_to_fetch):
-                    time.sleep(RATE_LIMIT_PAUSE_SEC)
-
-            except Exception as e:
-                print(f"[!] Falha na geração de embeddings: {e}")
-                # Fallback de vetor zerado em caso de erro temporário
+            if not success:
                 for orig_idx in batch_indices:
-                    zero_vec = [0.0] * 1024
-                    embeddings[orig_idx] = zero_vec
+                    embeddings[orig_idx] = [0.0] * 1024
+
+            # Pausa para respeitar o rate-limit do servidor compartilhado
+            if batch_start + BATCH_SIZE < len(texts_to_fetch):
+                time.sleep(RATE_LIMIT_PAUSE_SEC)
 
         # Salva o cache atualizado
         with open(CACHE_FILE, "wb") as f:

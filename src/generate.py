@@ -139,6 +139,7 @@ def generate_rag_response(
                 {"role": "user", "content": user_prompt},
             ],
             temperature=0.2,
+            timeout=25,
         )
         answer = response.choices[0].message.content or ""
         if response.usage:
@@ -148,9 +149,10 @@ def generate_rag_response(
                 "total": response.usage.total_tokens,
             }
     except Exception as e:
+        print(f"\n[Aviso] Servidor LLM remoto demorou para responder ({e}). Gerando síntese a partir das fontes locais:")
         answer = (
-            f"Síntese das evidências recuperadas ({len(chunks)} documentos analisados):\n\n"
-            + "\n".join([f"- {c.content[:200]}..." for c in chunks[:3]])
+            f"**Síntese baseada nas {len(chunks)} fontes recuperadas:**\n\n"
+            + "\n\n".join([f"• **[{c.metadata.base_id}]** {c.content.strip()}" for c in chunks[:3]])
         )
 
     t_gen_end = time.time()

@@ -1,4 +1,4 @@
-﻿import json
+import json
 from pathlib import Path
 from typing import List
 from src.schema import DocumentChunk, ChunkMetadata, BaseNatureza, SensitivityLevel
@@ -32,16 +32,31 @@ def chunk_text_by_paragraphs(text: str, chunk_size: int = 400, overlap: int = 50
     return chunks if chunks else [text]
 
 
+import pypdf
+
 def ingest_editais_normativo() -> List[DocumentChunk]:
-    """Processa documentos normativos e editais."""
+    """Processa documentos normativos e editais (TXT e PDF)."""
     chunks = []
     base_dir = RAW_DIR / "editais_normativo"
     if not base_dir.exists():
         return chunks
 
     for file_path in base_dir.glob("*.*"):
-        content = file_path.read_text(encoding="utf-8", errors="ignore")
-        sub_chunks = chunk_text_by_paragraphs(content, chunk_size=500, overlap=100)
+        if file_path.suffix.lower() == ".pdf":
+            try:
+                reader = pypdf.PdfReader(file_path)
+                pages_text = [page.extract_text() for page in reader.pages if page.extract_text()]
+                content = "\n\n".join(pages_text)
+            except Exception as e:
+                print(f"[!] Erro ao ler PDF {file_path.name}: {e}")
+                continue
+        else:
+            content = file_path.read_text(encoding="utf-8", errors="ignore")
+
+        if not content.strip():
+            continue
+
+        sub_chunks = chunk_text_by_paragraphs(content, chunk_size=600, overlap=100)
 
         for idx, text in enumerate(sub_chunks):
             chunk_id = f"norm_{file_path.stem}_{idx:03d}"
