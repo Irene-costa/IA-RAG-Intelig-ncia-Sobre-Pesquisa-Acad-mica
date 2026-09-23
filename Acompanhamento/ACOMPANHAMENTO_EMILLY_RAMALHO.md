@@ -18,7 +18,7 @@
 * Fiz um levantamento de documentos relacionados à Inteligência Artificial e à pesquisa acadêmica, buscando materiais que pudessem contribuir para o enriquecimento da base utilizada no RAG.
 * Após a pesquisa, selecionei os conteúdos pertinentes e realizei a organização dos arquivos na pasta `data/raw/v1/editais_normativo`, deixando os documentos estruturados para dar continuidade ao processo de alimentação da base.
 
-# Encontro 4 23/09/26
+# Encontro 5 23/09/26
 
 * Foram realizadas algumas alterações e implementações no código, além de ajustes necessários no projeto.
 * Realizei os testes dos arquivos e funcionalidades desenvolvidos.
