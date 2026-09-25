@@ -24,3 +24,9 @@
     A Iris fez bastante melhorias no código fora de aula, eu verifiquei hoje tudo que ela fez e fui testar, nos testes acabamos tendo alguns problemas. Eu tentei fazer ajustes no código e com os ajustes ficou melhor, consegui testar o app.cli com perguntas Normativa, Cross-Source, Agregada, Guardrail de E-mail e Guardrail Ético, todos parecem ter funcionado como deveriam em todos os testes que eu fiz. 
     Testei também unittest discover tests, benchmark e pipeline, apesar da demora do servidor por ter muitas requisições simultaneas, houve retorno positivo. 
     Consegui fazer o rag considerar os arquivos .pdf que anteriormente ele estava ignorando para gerar as respostas.
+
+# Encontro 6 25/09/2026
+    Hoje eu testei umas melhorias que a Iris implementou, dividimos as tarefas que faltam para conseguir avançar mais rápido. Depois de conversar com o Felipe, pesquisamos para implementar melhorias solicitadas, pesquisei e implementei melhorias para ingestão de dados automaticamente via script, consegui adicionar 160 arquivos para a nossa base de dados e testamos novamente. Tive problemas para fazer os testes porque o servidor estava sobrecarregado, mas a ingestão funionou.
+    Agora precisamos testar localmente cada um dos membros para ter certeza que vai funcionar para todos. 
+     
+    
