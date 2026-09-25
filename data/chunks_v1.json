@@ -10058,7 +10058,7 @@
       "base_id": "pareceres_conversacional",
       "natureza": "conversacional",
       "sensitivity": "interno",
-      "campo_vigencia": "2023-10-14",
+      "campo_vigencia": "2023-10-14", 
       "extras": {
         "protocolo_id": "REC-FAPERJ-2023-019",
         "decisao": "Recurso Provido - Aprovado",
