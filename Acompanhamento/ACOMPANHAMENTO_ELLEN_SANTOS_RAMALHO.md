@@ -28,3 +28,12 @@
 * Após os ajustes, refiz a execução dos testes e identifiquei que os problemas iniciais estavam relacionados principalmente à configuração e ao ambiente da minha máquina.
 * As funcionalidades testadas estão executando corretamente, sem apresentar os erros identificados inicialmente.
 * A execução está ocorrendo de forma mais lenta na minha máquina, possivelmente devido ao uso simultâneo da mesma API por outras pessoas, o que pode estar sobrecarregando o ambiente.
+
+# Encontro 6 25/09/26
+
+* Realização dos testes dos componentes do projeto.
+* Validação do funcionamento das etapas necessárias para avançar para as próximas partes.
+* Durante os testes, ocorreram alguns casos de Request Timeout, relacionados à demora na resposta do servidor LLM remoto.
+* O problema ocorreu em aproximadamente uma ou duas perguntas, sem comprometer os demais testes realizados.
+* Desenvolvimento, em conjunto com Emilly, de uma tentativa de automatização da busca e coleta de arquivos acadêmicos.
+* A automatização desenvolvida apresentou alguns erros, então optamos pelo automatizador do Marcos.
