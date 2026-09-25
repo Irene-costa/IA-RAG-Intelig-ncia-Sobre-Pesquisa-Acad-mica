@@ -83,24 +83,32 @@ def ingest_producao_estruturada() -> List[DocumentChunk]:
     """Processa metadados estruturados de artigos do OpenAlex e corpus sintético."""
     chunks = []
     base_dir = RAW_DIR / "producao_estruturada"
+    if not base_dir.exists():
+        return chunks
 
-    arquivos = [
-        base_dir / "data.json",
-        base_dir / "sintetico_programa.json",
-    ]
-
-    for file_path in arquivos:
-        if not file_path.exists():
+    for file_path in base_dir.glob("*.json"):
+        try:
+            with open(file_path, "r", encoding="utf-8-sig") as f:
+                data = json.load(f)
+        except Exception as e:
+            print(f"[!] Erro ao ler JSON {file_path.name}: {e}")
             continue
 
-        with open(file_path, "r", encoding="utf-8-sig") as f:
-            data = json.load(f)
+        if isinstance(data, dict) and "results" in data:
+            results = data["results"]
+        elif isinstance(data, list):
+            results = data
+        elif isinstance(data, dict):
+            results = [data]
+        else:
+            results = []
 
-        results = data.get("results", []) if isinstance(data, dict) else data
-        origem = "sintetico" if file_path.name == "sintetico_programa.json" else "openalex"
+        origem = "sintetico" if "sintetico" in file_path.name else "openalex"
 
         for idx, item in enumerate(results):
-            work_id = item.get("id", f"work_{idx}").split("/")[-1]
+            if not isinstance(item, dict):
+                continue
+            work_id = str(item.get("id", f"work_{file_path.stem}_{idx}")).split("/")[-1]
             title = item.get("title") or "Sem título"
             pub_year = item.get("publication_year")
             cited_by = item.get("cited_by_count", 0)
@@ -110,39 +118,40 @@ def ingest_producao_estruturada() -> List[DocumentChunk]:
             institutions_list = []
 
             for authorship in item.get("authorships", []):
-                author_name = authorship.get("author", {}).get("display_name")
-                if author_name:
-                    authors_list.append(author_name)
+                if isinstance(authorship, dict):
+                    author_name = authorship.get("author", {}).get("display_name")
+                    if author_name:
+                        authors_list.append(author_name)
 
-                for inst in authorship.get("institutions", []):
-                    inst_name = inst.get("display_name")
-                    if inst_name and inst_name not in institutions_list:
-                        institutions_list.append(inst_name)
+                    for inst in authorship.get("institutions", []):
+                        if isinstance(inst, dict):
+                            inst_name = inst.get("display_name")
+                            if inst_name and inst_name not in institutions_list:
+                                institutions_list.append(inst_name)
 
             grants_list = []
-
             for grant in item.get("grants", []):
-                funder = grant.get("funder_display_name")
-                award = grant.get("award_id")
-                if funder:
-                    grants_list.append(
-                        f"{funder} (Auxílio: {award})" if award else funder
-                    )
+                if isinstance(grant, dict):
+                    funder = grant.get("funder_display_name")
+                    award = grant.get("award_id")
+                    if funder:
+                        grants_list.append(f"{funder} (Auxílio: {award})" if award else funder)
 
             if not grants_list:
                 for funder in item.get("funders", []):
-                    funder_name = funder.get("display_name")
-                    if funder_name:
-                        grants_list.append(funder_name)
+                    if isinstance(funder, dict):
+                        funder_name = funder.get("display_name")
+                        if funder_name:
+                            grants_list.append(funder_name)
 
             abstract_idx = item.get("abstract_inverted_index")
             abstract_text = ""
-
-            if abstract_idx:
+            if abstract_idx and isinstance(abstract_idx, dict):
                 word_pos = []
                 for word, positions in abstract_idx.items():
-                    for pos in positions:
-                        word_pos.append((pos, word))
+                    if isinstance(positions, list):
+                        for pos in positions:
+                            word_pos.append((pos, word))
                 word_pos.sort()
                 abstract_text = " ".join(w for _, w in word_pos)
 
@@ -159,7 +168,6 @@ def ingest_producao_estruturada() -> List[DocumentChunk]:
             )
 
             chunk_id = f"est_{work_id}"
-
             metadata = ChunkMetadata(
                 chunk_id=chunk_id,
                 doc_type="json",
@@ -177,123 +185,132 @@ def ingest_producao_estruturada() -> List[DocumentChunk]:
                     "institutions": institutions_list[:3],
                     "has_funding": bool(grants_list),
                     "origem": origem,
-                    "programa_id": (
-                        "programa_saude_digital"
-                        if origem == "sintetico"
-                        else None
-                    ),
                 }
             )
-
-            chunks.append(
-                DocumentChunk(
-                    chunk_id=chunk_id,
-                    content=content,
-                    metadata=metadata
-                )
-            )
-
     return chunks
 
+
 def ingest_pareceres_conversacional() -> List[DocumentChunk]:
-    """Processa pareceres e registros de revisÃ£o por pares."""
+    """Processa pareceres e registros de revisão por pares."""
     chunks = []
-    file_path = RAW_DIR / "pareceres_conversacional" / "pareceres_peer_review.json"
-    if not file_path.exists():
+    base_dir = RAW_DIR / "pareceres_conversacional"
+    if not base_dir.exists():
         return chunks
 
-    with open(file_path, "r", encoding="utf-8") as f:
-        pareceres = json.load(f)
+    for file_path in base_dir.glob("*.json"):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                pareceres = json.load(f)
+        except Exception as e:
+            print(f"[!] Erro ao ler JSON {file_path.name}: {e}")
+            continue
 
-    for idx, p in enumerate(pareceres):
-        proto_id = p.get("protocolo_id", f"proto_{idx}")
-        titulo = p.get("titulo_projeto", "")
-        decisao = p.get("decisao", "")
-        data_p = p.get("data_parecer", "")
-        rodada = p.get("rodada", "")
-        texto = p.get("parecer_texto", "")
-        interno = p.get("comentario_interno_revisor", "")
+        if not isinstance(pareceres, list):
+            pareceres = [pareceres]
 
-        content = (
-            f"Protocolo: {proto_id}\n"
-            f"Projeto: {titulo}\n"
-            f"Ãrea: {p.get('area', '')}\n"
-            f"Data: {data_p} ({rodada})\n"
-            f"DecisÃ£o Editorial: {decisao}\n"
-            f"Parecer TÃ©cnico: {texto}\n"
-            f"ObservaÃ§Ã£o Interna: {interno}"
-        )
+        for idx, p in enumerate(pareceres):
+            if not isinstance(p, dict):
+                continue
+            proto_id = p.get("protocolo_id", f"proto_{file_path.stem}_{idx}")
+            titulo = p.get("titulo_projeto", "")
+            decisao = p.get("decisao", "")
+            data_p = p.get("data_parecer", "")
+            rodada = p.get("rodada", "")
+            texto = p.get("parecer_texto", "")
+            interno = p.get("comentario_interno_revisor", "")
 
-        chunk_id = f"conv_{proto_id.replace('-', '_')}_{idx:02d}"
-        metadata = ChunkMetadata(
-            chunk_id=chunk_id,
-            doc_type="json",
-            source_file=str(file_path.relative_to(DATA_DIR)),
-            base_id="pareceres_conversacional",
-            natureza=BaseNatureza.CONVERSACIONAL,
-            sensitivity=SensitivityLevel.INTERNO,
-            campo_vigencia=data_p,
-            extras={
-                "protocolo_id": proto_id,
-                "decisao": decisao,
-                "status_anonimato": p.get("status_anonimato", "duplo_cego"),
-                "rodada": rodada
-            }
-        )
-        chunks.append(DocumentChunk(chunk_id=chunk_id, content=content, metadata=metadata))
+            content = (
+                f"Protocolo: {proto_id}\n"
+                f"Projeto: {titulo}\n"
+                f"Área: {p.get('area', '')}\n"
+                f"Data: {data_p} ({rodada})\n"
+                f"Decisão Editorial: {decisao}\n"
+                f"Parecer Técnico: {texto}\n"
+                f"Observação Interna: {interno}"
+            )
+
+            chunk_id = f"conv_{proto_id.replace('-', '_')}_{idx:02d}"
+            metadata = ChunkMetadata(
+                chunk_id=chunk_id,
+                doc_type="json",
+                source_file=str(file_path.relative_to(DATA_DIR)),
+                base_id="pareceres_conversacional",
+                natureza=BaseNatureza.CONVERSACIONAL,
+                sensitivity=SensitivityLevel.INTERNO,
+                campo_vigencia=data_p,
+                extras={
+                    "protocolo_id": proto_id,
+                    "decisao": decisao,
+                    "status_anonimato": p.get("status_anonimato", "duplo_cego"),
+                    "rodada": rodada
+                }
+            )
+            chunks.append(DocumentChunk(chunk_id=chunk_id, content=content, metadata=metadata))
 
     return chunks
 
 
 def ingest_metricas_agregada() -> List[DocumentChunk]:
-    """Processa tÃ³picos e indicadores bibliomÃ©tricos do OpenAlex."""
+    """Processa tópicos e indicadores bibliométricos do OpenAlex."""
     chunks = []
-    file_path = RAW_DIR / "metricas_agregada" / "data.json"
-    if not file_path.exists():
+    base_dir = RAW_DIR / "metricas_agregada"
+    if not base_dir.exists():
         return chunks
 
-    with open(file_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    for file_path in base_dir.glob("*.json"):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception as e:
+            print(f"[!] Erro ao ler JSON {file_path.name}: {e}")
+            continue
 
-    results = data.get("results", []) if isinstance(data, dict) else data
+        if isinstance(data, dict) and "results" in data:
+            results = data["results"]
+        elif isinstance(data, list):
+            results = data
+        elif isinstance(data, dict):
+            results = [data]
+        else:
+            results = []
 
-    for idx, topic in enumerate(results):
-        topic_id = topic.get("id", f"topic_{idx}").split("/")[-1]
-        name = topic.get("display_name", "TÃ³pico")
-        works_count = topic.get("works_count", 0)
-        cited_count = topic.get("cited_by_count", 0)
-        subfield = topic.get("subfield", {}).get("display_name", "")
-        field_name = topic.get("field", {}).get("display_name", "")
-        domain = topic.get("domain", {}).get("display_name", "")
+        for idx, topic in enumerate(results):
+            if not isinstance(topic, dict):
+                continue
+            topic_id = str(topic.get("id", f"topic_{file_path.stem}_{idx}")).split("/")[-1]
+            name = topic.get("display_name", "Tópico")
+            works_count = topic.get("works_count", 0)
+            cited_count = topic.get("cited_by_count", 0)
+            subfield = topic.get("subfield", {}).get("display_name", "") if isinstance(topic.get("subfield"), dict) else ""
+            field_name = topic.get("field", {}).get("display_name", "") if isinstance(topic.get("field"), dict) else ""
+            domain = topic.get("domain", {}).get("display_name", "") if isinstance(topic.get("domain"), dict) else ""
 
-        content = (
-            f"TÃ³pico de Pesquisa: {name}\n"
-            f"Grande Ãrea: {domain} -> {field_name} -> {subfield}\n"
-            f"Total de Obras Indexadas: {works_count:,}\n"
-            f"Total de CitaÃ§Ãµes Acumuladas: {cited_count:,}\n"
-            f"Impacto MÃ©dio de CitaÃ§Ãµes por Obra: {(cited_count/works_count):.2f}" if works_count > 0 else "0"
-        )
+            content = (
+                f"Tópico de Pesquisa: {name}\n"
+                f"Grande Área: {domain} -> {field_name} -> {subfield}\n"
+                f"Total de Obras Indexadas: {works_count:,}\n"
+                f"Total de Citações Acumuladas: {cited_count:,}\n"
+                f"Impacto Médio de Citações por Obra: {(cited_count/works_count):.2f}" if works_count > 0 else "0"
+            )
 
-        chunk_id = f"agr_{topic_id}"
-        metadata = ChunkMetadata(
-            chunk_id=chunk_id,
-            doc_type="json",
-            source_file=str(file_path.relative_to(DATA_DIR)),
-            base_id="metricas_agregada",
-            natureza=BaseNatureza.AGREGADA,
-            sensitivity=SensitivityLevel.PUBLICO,
-            campo_vigencia="2024",
-            extras={
-                "topic_id": topic_id,
-                "works_count": works_count,
-                "cited_by_count": cited_count,
-                "subfield": subfield,
-                "field": field_name,
-                "domain": domain
-            }
-        )
-        chunks.append(DocumentChunk(chunk_id=chunk_id, content=content, metadata=metadata))
-
+            chunk_id = f"agr_{topic_id}"
+            metadata = ChunkMetadata(
+                chunk_id=chunk_id,
+                doc_type="json",
+                source_file=str(file_path.relative_to(DATA_DIR)),
+                base_id="metricas_agregada",
+                natureza=BaseNatureza.AGREGADA,
+                sensitivity=SensitivityLevel.PUBLICO,
+                campo_vigencia="2024",
+                extras={
+                    "topic_id": topic_id,
+                    "works_count": works_count,
+                    "cited_by_count": cited_count,
+                    "subfield": subfield,
+                    "field": field_name,
+                    "domain": domain
+                }
+            )
     return chunks
 
 
