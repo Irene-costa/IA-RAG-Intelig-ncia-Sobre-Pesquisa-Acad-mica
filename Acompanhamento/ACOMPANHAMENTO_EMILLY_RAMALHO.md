@@ -26,6 +26,13 @@
 * Após os ajustes, refiz os testes e as funcionalidades apresentaram o comportamento esperado.
 * Também identifiquei que a execução dos testes está ocorrendo de forma mais lenta, possivelmente devido à utilização simultânea do ambiente/vídeo da PUC-Rio por várias pessoas, o que pode estar gerando maior demanda de recursos e impactando o tempo de execução.
 
+# Encontro 6 25/09/26
+
+* Foram realizados testes nos componentes do projeto para validar o funcionamento e possibilitar o avanço para as próximas etapas.
+* Durante os testes, ocorreram alguns casos de Request Timeout, principalmente durante a etapa de busca e avaliação das questões, devido à demora na resposta do servidor LLM remoto.
+* Eu e Ellen também trabalhamos na criação de um automatizador para busca de arquivos, com o objetivo de facilitar a coleta dos materiais necessários.
+* Após os testes, optamos por utilizar o automatizador desenvolvido pelo Marcos, que apresentou um funcionamento satisfatório e atendeu bem à necessidade do projeto.
+* Com isso, foi possível validar as soluções e definir os componentes que serão utilizados para dar continuidade ao desenvolvimento.
 
 
 
