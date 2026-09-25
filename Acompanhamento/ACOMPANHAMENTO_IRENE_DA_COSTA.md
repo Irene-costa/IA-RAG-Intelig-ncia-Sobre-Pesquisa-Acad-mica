@@ -53,3 +53,41 @@ Próximos passos:
 
 - Ajustar os parâmetros no arquivo de configuração (`config.py` / `.env`) reduzindo o lote para requisições menores.
 - Rodar novamente o script de indexação e validar a suíte de testes com `python -m pytest`.
+
+## Encontro 6 - 25/09/2026
+
+### O que fiz hoje:
+
+Concluí com sucesso a execução, teste, validação e expansão de corpus ponta a ponta de todos os módulos do projeto referentes ao Cenário 3 (Inteligência sobre Pesquisa Acadêmica - FAPERJ/CNPq).
+
+### Atividades e Testes Realizados Hoje
+
+1. Ajuste de Dependências e Ambiente
+    - Resolvi a divergência de digitação do arquivo de dependências e validei a presença do requirements.txt na raiz do projeto.
+2. Benchmark de Avaliação (eval.benchmark)
+    - Executei o script de avaliação com as 20 perguntas do cenário acadêmico (eval.benchmark).
+    - Observei a ativação automática do mecanismo de fallback léxico (BM25) devido ao timeout na API remota de embeddings, o que garantiu a conclusão total da avaliação.
+    - Confirmei a geração dos resultados salvos em eval/benchmark_results.json.
+3. **Interface de Linha de Comando (app.cli)
+    - Testei de forma interativa a interface CLI (app.cli), validando a recuperação do contexto, a exibição das fontes e o tempo de resposta do pipeline.
+    - Validei o funcionamento dos guardrails éticos/de dados sensíveis e encerrei a sessão normalmente.
+4. Testes Unitários (unittest)
+    - Rodei a bateria de testes automatizados com `python -m unittest discover tests.
+    - Resultado: Obtive 100% de aprovação (`Ran 10 tests in 0.042s` -> OK).
+5. **Pipeline de RAG (src.pipeline)
+    - Executei o fluxo do pipeline (src.pipeline) para validar a ingestão e recuperação de trechos.
+    - Verifiquei a correta citação e mapeamento das 6 fontes dos editais e normativos da FAPERJ e CNPq.
+6. **Servidor Web (app.server)
+    - Iniciei o servidor web do Adaptive RAG (app.server) e validei a disponibilização do serviço local na porta http://localhost:8000.
+7. Descoberta e Ingestão Automática de Corpus (src.auto_discover_corpus)
+    - Executei o script de descoberta automática python -m src.auto_discover_corpus --target 160 --auto-ingest.
+    - Realizei a varredura e ingestão automática de novos documentos do Cenário 3 até atingir a meta estabelecida, atualizando a base local e os vetores de busca.
+    8. Notion
+    -Fiz anotações no Notion pessoal.
+
+### Próximos Passos (Para o Próximo Encontro)
+
+- Apresentar ao grupo os resultados obtidos no benchmark e a validação do pipeline com o corpus expandido.
+- Discutir refinamentos nas métricas de avaliação do RAG e possíveis otimizações no tempo de resposta (latência) da recuperação vetorial.
+- Integrar as contribuições individuais dos membros do grupo para a consolidação da entrega final.
+- Atualizar a documentação geral do repositório conforme as orientações combinadas com a equipe.
