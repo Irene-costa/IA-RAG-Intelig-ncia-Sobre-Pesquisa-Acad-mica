@@ -33,3 +33,21 @@ Também configurei o Cross-Encoder para o reranking e corrigi a recuperação cr
 Depois fiz os testes no cenário da Profa. Ana, sobre trabalhos de saúde digital e financiamento externo, e a recuperação funcionou corretamente com as bases necessárias.
 
 Por fim, fiz o commit `599c59f` com as alterações e subi minha parte para o GitHub.
+
+## 25/09/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje dei continuidade às atividades do projeto, verificando o que já havia sido desenvolvido e o que ainda precisava ser validado.
+
+Revisei o arquivo `eval/benchmark.py` e confirmei que as questões Q07 a Q20 do benchmark já estavam incluídas. Também verifiquei o `src/ingest.py` e confirmei que a função `ingest_producao_estruturada()` já estava implementada, não sendo necessário criar uma nova versão.
+
+Trabalhei na ampliação da fixture `tests/fixtures/chunks_sample.json`, acrescentando exemplos para representar melhor as diferentes bases e estruturas do cenário. Depois validei o arquivo e executei o teste `python -m pytest -q tests/test_chunks.py`, que foi concluído com 1 teste aprovado.
+
+Também conferi o `git status` para identificar quais alterações realmente deveriam ser enviadas ao repositório e quais arquivos eram apenas temporários.
+
+Após isso, fiz o commit `4f01301` — `test: amplia fixture de chunks`.
+
+Como havia alterações mais recentes no GitHub, atualizei primeiro o repositório local com `git pull --rebase origin main`, conferi o histórico e, depois, fiz o `git push origin main`.
+
+O envio foi concluído com sucesso e a minha contribuição ficou registrada no GitHub. Os arquivos temporários utilizados durante as verificações (`funcao_temp.txt` e `q07_q20.txt`) não foram incluídos no commit.
