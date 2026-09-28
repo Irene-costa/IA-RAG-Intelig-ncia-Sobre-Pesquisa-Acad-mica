@@ -91,3 +91,27 @@ Concluí com sucesso a execução, teste, validação e expansão de corpus pont
 - Discutir refinamentos nas métricas de avaliação do RAG e possíveis otimizações no tempo de resposta (latência) da recuperação vetorial.
 - Integrar as contribuições individuais dos membros do grupo para a consolidação da entrega final.
 - Atualizar a documentação geral do repositório conforme as orientações combinadas com a equipe.
+
+## Encontro 7 - 28/09/2026
+
+### O que fiz hoje:
+
+Realizei a correção de dependências do ambiente e executei com sucesso os testes funcionais na interface web do Streamlit para o Cenário 3 (Inteligência sobre Pesquisa Acadêmica - FAPERJ/CNPq).
+
+### Atividades Realizadas Hoje:
+
+1. Correção de Dependência no Ambiente
+    - Identifiquei a falta do pacote torchvision durante a inicialização da aplicação e realizei a instalação no ambiente via terminal (pip install torchvision).
+2. Execução da Interface Web (streamlit_app.py)
+    - Iniciei o servidor da aplicação gráfica executando o comando no terminal.
+    - Validei a inicialização do serviço local na porta http://localhost:8501.
+3. Validação Prática de Consultas
+    - Acessei a interface no navegador e submeti perguntas de teste sobre os editais e normativos do Cenário 3 (FAPERJ/CNPq).
+    - Confirmei o processamento das requisições e a recuperação de respostas em tempo real.
+
+### Próximos Passos (Para o Próximo Encontro):
+
+- Estruturar a migração da base vetorial para um banco de dados SQL (ex: PostgreSQL com a extensão pgvector ou SQLite/MySQL com suporte a embeddings), conforme orientação do professor.
+- Apresentar ao grupo o funcionamento da interface gráfica e as consultas validadas no Streamlit.
+- Discutir com a equipe possíveis refinamentos no tempo de resposta das consultas e a nova modelagem das tabelas do banco SQL.
+- Alinhar a consolidação dos arquivos e a documentação final do projeto para a entrega do grupo.
