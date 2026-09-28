@@ -79,6 +79,52 @@ def ingest_editais_normativo() -> List[DocumentChunk]:
     return chunks
 
 
+def _parse_faperj_beneficiarios(data: dict, file_path, chunks: list):
+    """Parser para arquivos de beneficiários FAPERJ com publicações cruzadas."""
+    beneficiarios = data.get("beneficiarios_com_publicacoes", [])
+    edital = data.get("edital", "")
+    for idx, pesq in enumerate(beneficiarios):
+        if not isinstance(pesq, dict):
+            continue
+        nome = pesq.get("pesquisador", "")
+        inst = pesq.get("instituicao", "")
+        projeto = pesq.get("projeto_financiado", "")
+        categoria = pesq.get("categoria_edital", "")
+        valor = pesq.get("valor_concedido", 0)
+        cumprimento = pesq.get("cumprimento_meta_publicacoes", "")
+        pubs = pesq.get("publicacoes_com_financiamento_declarado", [])
+
+        pubs_text = []
+        for pub in pubs:
+            pubs_text.append(
+                f"  - {pub.get('titulo', '')} ({pub.get('revista', '')}, {pub.get('ano', '')}), "
+                f"{pub.get('citacoes', 0)} citações, financiamento FAPERJ declarado: {pub.get('agradecimento_faperj', False)}. "
+                f"Agradecimento: '{pub.get('texto_agradecimento', '')}'"
+            )
+
+        content = (
+            f"Edital: {edital}\n"
+            f"Pesquisador Beneficiário: {nome}\n"
+            f"Instituição: {inst}\n"
+            f"Projeto Financiado: {projeto}\n"
+            f"Categoria: {categoria} | Valor Concedido: R$ {valor:,.2f}\n"
+            f"Cumprimento da meta de publicações: {cumprimento}\n"
+            f"Publicações com menção de financiamento FAPERJ:\n" + "\n".join(pubs_text)
+        )
+        chunk_id = f"est_faperj_{file_path.stem}_{idx:02d}"
+        metadata = ChunkMetadata(
+            chunk_id=chunk_id,
+            doc_type="json",
+            source_file=str(file_path.relative_to(DATA_DIR)),
+            base_id="producao_estruturada",
+            natureza=BaseNatureza.ESTRUTURADA,
+            sensitivity=SensitivityLevel.PUBLICO,
+            campo_vigencia="2022-2024",
+            extras={"pesquisador": nome, "edital": edital, "categoria": categoria, "has_funding": True, "origem": "sintetico"}
+        )
+        chunks.append(DocumentChunk(chunk_id=chunk_id, content=content, metadata=metadata))
+
+
 def ingest_producao_estruturada() -> List[DocumentChunk]:
     """Processa metadados estruturados de artigos do OpenAlex e corpus sintético."""
     chunks = []
@@ -92,6 +138,11 @@ def ingest_producao_estruturada() -> List[DocumentChunk]:
                 data = json.load(f)
         except Exception as e:
             print(f"[!] Erro ao ler JSON {file_path.name}: {e}")
+            continue
+
+        # Formato especial: beneficiários FAPERJ
+        if isinstance(data, dict) and "beneficiarios_com_publicacoes" in data:
+            _parse_faperj_beneficiarios(data, file_path, chunks)
             continue
 
         if isinstance(data, dict) and "results" in data:
@@ -167,7 +218,7 @@ def ingest_producao_estruturada() -> List[DocumentChunk]:
                 f"Resumo: {abstract_text[:600]}"
             )
 
-            chunk_id = f"est_{work_id}"
+            chunk_id = f"est_{work_id}_{idx:03d}"
             metadata = ChunkMetadata(
                 chunk_id=chunk_id,
                 doc_type="json",
@@ -187,6 +238,7 @@ def ingest_producao_estruturada() -> List[DocumentChunk]:
                     "origem": origem,
                 }
             )
+            chunks.append(DocumentChunk(chunk_id=chunk_id, content=content, metadata=metadata))  # BUG FIX
     return chunks
 
 
@@ -250,6 +302,112 @@ def ingest_pareceres_conversacional() -> List[DocumentChunk]:
     return chunks
 
 
+def _parse_citacoes_institucionais(data: dict, file_path, chunks: list):
+    """Parser para arquivos de métricas de citação institucional."""
+    periodo = data.get("periodo_referencia", "")
+    instituicao = data.get("instituicao", "")
+    resumo = data.get("resumo_indicadores_institucionais_2023", {})
+
+    # Chunk 1: Resumo geral
+    if resumo:
+        content = (
+            f"Indicadores Institucionais de Pesquisa - {instituicao} ({periodo})\n"
+            f"Total de artigos indexados: {resumo.get('total_artigos_indexados', 0):,}\n"
+            f"Artigos em revistas A1/A2: {resumo.get('total_artigos_a1_a2', 0):,}\n"
+            f"Total de citações (OpenAlex): {resumo.get('citacoes_totais_openalex', 0):,}\n"
+            f"H-index institucional: {resumo.get('h_index_institucional', 0)}\n"
+            f"Coautorias internacionais: {resumo.get('coautorias_internacionais_percentual', 0)}%\n"
+            f"Áreas mais produtivas: {', '.join(resumo.get('areas_mais_produtivas', []))}\n"
+            f"Principais financiadores: {', '.join(resumo.get('financiadores_principais', []))}"
+        )
+        chunk_id = f"agr_inst_resumo_{file_path.stem}"
+        metadata = ChunkMetadata(
+            chunk_id=chunk_id, doc_type="json",
+            source_file=str(file_path.relative_to(DATA_DIR)),
+            base_id="metricas_agregada", natureza=BaseNatureza.AGREGADA,
+            sensitivity=SensitivityLevel.PUBLICO, campo_vigencia=str(periodo),
+            extras={"tipo": "resumo_institucional", "periodo": periodo}
+        )
+        chunks.append(DocumentChunk(chunk_id=chunk_id, content=content, metadata=metadata))
+
+    # Chunk 2+: Top artigos individuais
+    for idx, artigo in enumerate(data.get("top_artigos_citacoes_2023", [])):
+        autores = artigo.get("autores", [])
+        financiamento = artigo.get("financiamento_declarado", "Não declarado")
+        content = (
+            f"[Rank #{artigo.get('rank', idx+1)} em Citações - {periodo}] {artigo.get('titulo', '')}\n"
+            f"Autores: {', '.join(autores)}\n"
+            f"Instituição: {artigo.get('instituicao_principal', '')}\n"
+            f"Revista: {artigo.get('revista', '')} (Qualis CAPES: {artigo.get('qualis_capes', '')})\n"
+            f"Citações no OpenAlex: {artigo.get('citacoes_openalex', 0):,}\n"
+            f"Citações no Google Scholar: {artigo.get('citacoes_google_scholar', 0):,}\n"
+            f"Financiamento declarado: {financiamento}\n"
+            f"Agradecimentos: {artigo.get('agradecimentos', '')}\n"
+            f"DOI: {artigo.get('doi', '')}"
+        )
+        chunk_id = f"agr_top_art_{file_path.stem}_{idx:02d}"
+        metadata = ChunkMetadata(
+            chunk_id=chunk_id, doc_type="json",
+            source_file=str(file_path.relative_to(DATA_DIR)),
+            base_id="metricas_agregada", natureza=BaseNatureza.AGREGADA,
+            sensitivity=SensitivityLevel.PUBLICO, campo_vigencia=str(periodo),
+            extras={"rank": artigo.get('rank'), "citacoes": artigo.get('citacoes_openalex', 0),
+                    "revista": artigo.get('revista', ''), "tipo": "top_artigo"}
+        )
+        chunks.append(DocumentChunk(chunk_id=chunk_id, content=content, metadata=metadata))
+
+
+def _parse_artigos_etica_ia(data: dict, file_path, chunks: list):
+    """Parser para arquivos de artigos de ética em IA com aprovação CEP."""
+    periodo = data.get("periodo", "")
+    total = data.get("total_encontrado", 0)
+    stats = data.get("estatisticas_gerais_2023", {})
+
+    # Chunk de estatísticas
+    content_stat = (
+        f"Panorama: Artigos sobre Ética em IA publicados no Brasil em {periodo}\n"
+        f"Total encontrado: {total} artigos\n"
+        f"Com menção de aprovação CEP no resumo: {stats.get('artigos_com_mencao_cep_no_resumo', 0)}\n"
+        f"Dispensados de CEP (Resolução CNS 510/2016): {stats.get('artigos_dispensados_cep_resolucao_510', 0)}\n"
+        f"Média de citações: {stats.get('media_citacoes', 0)}\n"
+        f"Periódicos mais frequentes: {', '.join(stats.get('periódicos_mais_frequentes', []))}"
+    )
+    chunk_id = f"agr_etica_ia_stat_{file_path.stem}"
+    meta = ChunkMetadata(
+        chunk_id=chunk_id, doc_type="json",
+        source_file=str(file_path.relative_to(DATA_DIR)),
+        base_id="metricas_agregada", natureza=BaseNatureza.AGREGADA,
+        sensitivity=SensitivityLevel.PUBLICO, campo_vigencia=periodo,
+        extras={"tipo": "estatistica_etica_ia"}
+    )
+    chunks.append(DocumentChunk(chunk_id=chunk_id, content=content_stat, metadata=meta))
+
+    for idx, artigo in enumerate(data.get("artigos", [])):
+        autores = artigo.get("autores", [])
+        content = (
+            f"Artigo sobre Ética em IA ({periodo}): {artigo.get('titulo', '')}\n"
+            f"Autores: {', '.join(autores)}\n"
+            f"Instituições: {', '.join(artigo.get('instituicoes', []))}\n"
+            f"Revista: {artigo.get('revista', '')} | Ano: {artigo.get('ano_publicacao', '')}\n"
+            f"Citações: {artigo.get('citacoes', 0)} | DOI: {artigo.get('doi', '')}\n"
+            f"Menção de aprovação CEP no resumo: {'Sim' if artigo.get('mencao_aprovacao_cep_no_resumo') else 'Não'}\n"
+            f"Protocolo CEP: {artigo.get('protocolo_cep', 'N/A')}\n"
+            f"Registrado na Plataforma Brasil: {'Sim' if artigo.get('plataforma_brasil') else 'Não'}\n"
+            f"Financiamento: {', '.join(artigo.get('financiamento', []))}\n"
+            f"Resumo: {artigo.get('resumo', '')[:500]}"
+        )
+        chunk_id = f"agr_etica_ia_{file_path.stem}_{idx:02d}"
+        meta = ChunkMetadata(
+            chunk_id=chunk_id, doc_type="json",
+            source_file=str(file_path.relative_to(DATA_DIR)),
+            base_id="metricas_agregada", natureza=BaseNatureza.AGREGADA,
+            sensitivity=SensitivityLevel.PUBLICO, campo_vigencia=str(artigo.get('ano_publicacao', periodo)),
+            extras={"mencao_cep": artigo.get('mencao_aprovacao_cep_no_resumo', False),
+                    "protocolo_cep": artigo.get('protocolo_cep', ''), "tipo": "artigo_etica_ia"}
+        )
+        chunks.append(DocumentChunk(chunk_id=chunk_id, content=content, metadata=meta))
+
+
 def ingest_metricas_agregada() -> List[DocumentChunk]:
     """Processa tópicos e indicadores bibliométricos do OpenAlex."""
     chunks = []
@@ -263,6 +421,16 @@ def ingest_metricas_agregada() -> List[DocumentChunk]:
                 data = json.load(f)
         except Exception as e:
             print(f"[!] Erro ao ler JSON {file_path.name}: {e}")
+            continue
+
+        # Formato especial: citações institucionais
+        if isinstance(data, dict) and "top_artigos_citacoes_2023" in data:
+            _parse_citacoes_institucionais(data, file_path, chunks)
+            continue
+
+        # Formato especial: artigos de ética em IA
+        if isinstance(data, dict) and "artigos" in data and "total_encontrado" in data:
+            _parse_artigos_etica_ia(data, file_path, chunks)
             continue
 
         if isinstance(data, dict) and "results" in data:
@@ -285,15 +453,20 @@ def ingest_metricas_agregada() -> List[DocumentChunk]:
             field_name = topic.get("field", {}).get("display_name", "") if isinstance(topic.get("field"), dict) else ""
             domain = topic.get("domain", {}).get("display_name", "") if isinstance(topic.get("domain"), dict) else ""
 
+            if works_count > 0:
+                impact = f"{(cited_count/works_count):.2f}"
+            else:
+                impact = "0"
+
             content = (
                 f"Tópico de Pesquisa: {name}\n"
                 f"Grande Área: {domain} -> {field_name} -> {subfield}\n"
                 f"Total de Obras Indexadas: {works_count:,}\n"
                 f"Total de Citações Acumuladas: {cited_count:,}\n"
-                f"Impacto Médio de Citações por Obra: {(cited_count/works_count):.2f}" if works_count > 0 else "0"
+                f"Impacto Médio de Citações por Obra: {impact}"
             )
 
-            chunk_id = f"agr_{topic_id}"
+            chunk_id = f"agr_{topic_id}_{idx:03d}"
             metadata = ChunkMetadata(
                 chunk_id=chunk_id,
                 doc_type="json",
@@ -311,6 +484,7 @@ def ingest_metricas_agregada() -> List[DocumentChunk]:
                     "domain": domain
                 }
             )
+            chunks.append(DocumentChunk(chunk_id=chunk_id, content=content, metadata=metadata))  # BUG FIX
     return chunks
 
 
