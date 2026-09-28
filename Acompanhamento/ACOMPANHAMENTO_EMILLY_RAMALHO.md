@@ -34,5 +34,13 @@
 * Após os testes, optamos por utilizar o automatizador desenvolvido pelo Marcos, que apresentou um funcionamento satisfatório e atendeu bem à necessidade do projeto.
 * Com isso, foi possível validar as soluções e definir os componentes que serão utilizados para dar continuidade ao desenvolvimento.
 
+# Encontro 7 28/09/26
+
+* Instalei e corrigi as dependências necessárias para executar o Streamlit no ambiente.
+* Executei a aplicação streamlit_app.py e validei o funcionamento da interface web localmente.
+* Realizei testes funcionais na interface, verificando o comportamento da aplicação e o processamento das consultas.
+* Testei a geração e recuperação das respostas, avaliando se o RAG estava retornando as informações de forma adequada.
+* Pesquisei sobre bancos de dados vetoriais e sua utilização em aplicações RAG, buscando entender melhor o armazenamento, geração de embeddings e recuperação de informações por similaridade.
+* A partir da pesquisa e das discussões realizadas com a equipe, entramos em consenso pela utilização do ChromaDB como banco de dados vetorial do projeto.
 
 
