@@ -29,4 +29,8 @@
     Hoje eu testei umas melhorias que a Iris implementou, dividimos as tarefas que faltam para conseguir avançar mais rápido. Depois de conversar com o Felipe, pesquisamos para implementar melhorias solicitadas, pesquisei e implementei melhorias para ingestão de dados automaticamente via script, consegui adicionar 160 arquivos para a nossa base de dados e testamos novamente. Tive problemas para fazer os testes porque o servidor estava sobrecarregado, mas a ingestão funionou.
     Agora precisamos testar localmente cada um dos membros para ter certeza que vai funcionar para todos. 
      
+# Encontro 7 28/09/2026
+    Hoje fiz a interface usando streamlit, fiquei responsável por essa parte do projeto. Não consegui entregar todos os requisitos solicitados mas fiz diversos testes para validar se está funcionando corretamente. Tivemos alguns problemas com o com as respostas e os dados, mas consegui resolver por enquanto. Precisei adicionar mais arquivos para a base de dados para ter respostas mais precisas, guardrayls testados e por enquanto está funcionando como deveria, também testei perguntas fora do contexto e o rag não está gerando respostas o que é um bom sinal.
+    Comecei a implementar o banco SQL e vou depois implementar o chroma pro vetorial. Depois disso farei testes pra que verificar se os dados estão sendo extraidos de forma correta.
+    
     
