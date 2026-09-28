@@ -51,3 +51,16 @@ Após isso, fiz o commit `4f01301` — `test: amplia fixture de chunks`.
 Como havia alterações mais recentes no GitHub, atualizei primeiro o repositório local com `git pull --rebase origin main`, conferi o histórico e, depois, fiz o `git push origin main`.
 
 O envio foi concluído com sucesso e a minha contribuição ficou registrada no GitHub. Os arquivos temporários utilizados durante as verificações (`funcao_temp.txt` e `q07_q20.txt`) não foram incluídos no commit.
+## 28/09/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje continuei acompanhando o estado atual do projeto e fiz uma validação da suíte de testes automatizados.
+
+Primeiro conferi o status do repositório e confirmei que minha branch `main` estava sincronizada com o GitHub e sem alterações pendentes nos arquivos do projeto.
+
+Depois executei a suíte completa de testes com `python -m pytest -v`. Foram executados 10 testes, abrangendo validação dos chunks e metadados, guardrails e regras de LGPD, roteamento das consultas, cálculo do RRF e contrato de recuperação.
+
+Todos os 10 testes foram aprovados, sem falhas.
+
+Essa validação ajudou a confirmar que os principais componentes já implementados no projeto continuam funcionando corretamente.
