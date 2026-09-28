@@ -37,3 +37,11 @@
 * O problema ocorreu em aproximadamente uma ou duas perguntas, sem comprometer os demais testes realizados.
 * Desenvolvimento, em conjunto com Emilly, de uma tentativa de automatização da busca e coleta de arquivos acadêmicos.
 * A automatização desenvolvida apresentou alguns erros, então optamos pelo automatizador do Marcos.
+
+# Encontro 7 28/09/26
+
+* Instalei as dependências necessárias para conseguir executar o Streamlit com sucesso.
+* Executei o streamlit_app.py e validei o funcionamento da interface web.
+* Realizei testes funcionais e verifiquei a geração e recuperação das respostas pelo RAG.
+* Pesquisei sobre bancos vetoriais, embeddings e busca por similaridade.
+* Em conjunto com a equipe, definimos o ChromaDB para o projeto.
