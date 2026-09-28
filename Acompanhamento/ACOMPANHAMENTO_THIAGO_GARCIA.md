@@ -32,3 +32,10 @@
     - testes de geração de embeddings;
     - discussão a respeito da relação arquivos locais/arquivos gerais (remotos)
     - padronização e atualização em relação ao que já foi feito pelo restante do grupo
+
+## Encontro 6 - 25/09/2026
+
+    - bateria de testes do pipeline
+    - atualização do projeto local
+    - teste de interface
+    - teste de consultas
