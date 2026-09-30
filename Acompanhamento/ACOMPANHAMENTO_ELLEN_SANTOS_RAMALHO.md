@@ -45,3 +45,9 @@
 * Realizei testes funcionais e verifiquei a geração e recuperação das respostas pelo RAG.
 * Pesquisei sobre bancos vetoriais, embeddings e busca por similaridade.
 * Em conjunto com a equipe, definimos o ChromaDB para o projeto.
+
+# Encontro 8 30/09/26
+
+* Finalização da instalação e configuração das extensões necessárias para utilização do ChromaDB no projeto.
+* Exploração de algumas funcionalidades do projeto, buscando entender melhor seu funcionamento e comportamento.
+* Dedicação de parte do dia ao estudo e à análise da estrutura do projeto, com o objetivo de compreender melhor os componentes, funcionalidades e integrações existentes.
