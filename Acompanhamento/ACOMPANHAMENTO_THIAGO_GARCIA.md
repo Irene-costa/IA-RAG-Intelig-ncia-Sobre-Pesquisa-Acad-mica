@@ -39,3 +39,10 @@
     - atualização do projeto local
     - teste de interface
     - teste de consultas
+
+## Encontro 7 - 30/09/2026
+
+    - configuração do chroma db
+    - testes de interação com a interface
+    - instalação de novas dependências
+    - troca com o grupo sobre alinhamento com o projeto
