@@ -43,4 +43,10 @@
 * Pesquisei sobre bancos de dados vetoriais e sua utilização em aplicações RAG, buscando entender melhor o armazenamento, geração de embeddings e recuperação de informações por similaridade.
 * A partir da pesquisa e das discussões realizadas com a equipe, entramos em consenso pela utilização do ChromaDB como banco de dados vetorial do projeto.
 
+# Encontro 8 30/09/26
 
+* Hoje, o foco foi **entender melhor a estrutura do projeto**, observando como os arquivos e módulos estão organizados e como acontece o fluxo de execução.
+* Também estudei a integração dos bancos **SQL e ChromaDB**, buscando compreender melhor como eles funcionam dentro do projeto e como se relacionam com as demais partes do sistema.
+* Aproveitei o dia para **explorar melhor o código-fonte**, entendendo a organização dos arquivos, a função de cada parte e como as informações percorrem o sistema.
+* Além disso, continuei **me familiarizando com o projeto e com as tecnologias utilizadas**, buscando entender melhor seu funcionamento e as próximas etapas de desenvolvimento.
+* Por fim, instalei as dependências necessárias para o funcionamento do ChromaDB, deixando o ambiente preparado para a utilização e realização dos próximos testes.
