@@ -115,3 +115,23 @@ Realizei a correção de dependências do ambiente e executei com sucesso os tes
 - Apresentar ao grupo o funcionamento da interface gráfica e as consultas validadas no Streamlit.
 - Discutir com a equipe possíveis refinamentos no tempo de resposta das consultas e a nova modelagem das tabelas do banco SQL.
 - Alinhar a consolidação dos arquivos e a documentação final do projeto para a entrega do grupo.
+
+## Encontro 8 - 30/09/2026
+
+### O que fiz hoje:
+
+Dediquei o dia ao estudo e análise da estrutura do código do projeto, além da atualização das ferramentas de desenvolvimento no ambiente local.
+
+### Atividades Realizadas Hoje
+
+1. Atualização do Ambiente de Desenvolvimento
+    - Realizei a atualização do Visual Studio Code para garantir suporte às últimas extensões e ferramentas de assistência de código.
+2. Análise e Estudo do Código-Fonte
+    - Estudei a estrutura e o fluxo de execução dos scripts do projeto (`src/db_setup.py`, `src/db_sql.py` e `src/db_chroma.py`).
+    - Analisei a integração dos módulos de gestão de dados vetoriais e relacionais (SQL) para preparar a transição solicitada pela orientação do curso.
+
+### Próximos Passos (Para o Próximo Encontro)
+
+- Executar os scripts de banco de dados (`db_setup.py` e `db_sql.py`) para validar a criação e inserção na base SQL.
+- Dar início à estruturação das tabelas de vetores/embeddings no SQL (ex: PostgreSQL/`pgvector` ou SQLite).
+- Apresentar ao grupo as conclusões da análise do código e alinhar as próximas etapas de implementação do banco SQL.
