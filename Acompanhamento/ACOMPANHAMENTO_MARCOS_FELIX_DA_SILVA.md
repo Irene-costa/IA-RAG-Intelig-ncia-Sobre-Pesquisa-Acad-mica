@@ -33,4 +33,6 @@
     Hoje fiz a interface usando streamlit, fiquei responsável por essa parte do projeto. Não consegui entregar todos os requisitos solicitados mas fiz diversos testes para validar se está funcionando corretamente. Tivemos alguns problemas com o com as respostas e os dados, mas consegui resolver por enquanto. Precisei adicionar mais arquivos para a base de dados para ter respostas mais precisas, guardrayls testados e por enquanto está funcionando como deveria, também testei perguntas fora do contexto e o rag não está gerando respostas o que é um bom sinal.
     Comecei a implementar o banco SQL e vou depois implementar o chroma pro vetorial. Depois disso farei testes pra que verificar se os dados estão sendo extraidos de forma correta.
     
+# Encontro 8 30/09/2026
+    Hoje eu fui responsável por adicionar o banco SQL e o ChromaDB no projeto, consegui adicionar os dois bancos e fazer testes para verificar se está funcionando corretamente. Pelos meus poucos testes parece que funcionou normal, mas tive problemas com quedas de energia e não consegi fazer mais nada além disso.
     
