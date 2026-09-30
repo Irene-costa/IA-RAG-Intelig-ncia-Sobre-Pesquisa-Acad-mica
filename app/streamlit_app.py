@@ -78,6 +78,8 @@ st.markdown("""
     .badge-agregada { background-color: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.4); }
     .badge-guardrail { background-color: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
     .badge-ok { background-color: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); }
+    .badge-sql { background-color: rgba(251, 146, 60, 0.2); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.4); }
+    .badge-chroma { background-color: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
 
     /* Card estatísticas */
     .stat-card {
@@ -221,6 +223,28 @@ with st.sidebar:
     stats = get_corpus_stats()
     st.markdown(f"**Arquivos no Corpus:** `{stats['total_files']} arquivos`")
     st.markdown(f"**Chunks Indexados:** `{stats['total_chunks']} trechos`")
+
+    # Estatisticas dos bancos de dados
+    st.markdown("---")
+    st.markdown("**Bancos de Dados:**")
+    try:
+        from src.db_sql import get_connection, DB_PATH
+        from src.db_chroma import get_stats as chroma_stats_fn
+        if DB_PATH.exists():
+            conn = get_connection()
+            n_art = conn.execute("SELECT COUNT(*) FROM artigos").fetchone()[0]
+            n_met = conn.execute("SELECT COUNT(*) FROM metricas").fetchone()[0]
+            n_par = conn.execute("SELECT COUNT(*) FROM pareceres").fetchone()[0]
+            n_edi = conn.execute("SELECT COUNT(*) FROM editais").fetchone()[0]
+            n_ben = conn.execute("SELECT COUNT(*) FROM beneficiarios_fomento").fetchone()[0]
+            conn.close()
+            st.markdown(f'<span class="badge badge-sql">SQLite: {n_art+n_met+n_par+n_edi+n_ben} registros</span>', unsafe_allow_html=True)
+        chroma_s = chroma_stats_fn()
+        chroma_total = sum(chroma_s.values())
+        if chroma_total > 0:
+            st.markdown(f'<span class="badge badge-chroma">ChromaDB: {chroma_total} vetores</span>', unsafe_allow_html=True)
+    except Exception:
+        pass
     
     st.markdown("---")
     
@@ -298,23 +322,35 @@ if menu == "💬 Consulta RAG & Chat":
         
         # Tags de Roteamento e Guardrails
         tag_html = ""
+        seen_tags = set()
+        has_sql = False
         for src in res.sources_used:
             b_id = src.get("base_id", "")
-            if "norm" in b_id:
+            tag_key = b_id
+            if tag_key in seen_tags:
+                continue
+            seen_tags.add(tag_key)
+            if "sql" in b_id:
+                has_sql = True
+                tag_html += '<span class="badge badge-sql">SQLite (Dados Relacionais)</span>'
+            elif "norm" in b_id:
                 tag_html += '<span class="badge badge-normativa">Normativa</span>'
             elif "estruturada" in b_id:
                 tag_html += '<span class="badge badge-estruturada">Estruturada (OpenAlex)</span>'
             elif "conversacional" in b_id:
                 tag_html += '<span class="badge badge-conversacional">Conversacional (Pareceres)</span>'
             elif "agregada" in b_id:
-                tag_html += '<span class="badge badge-agregada">Agregada (Métricas)</span>'
-                
-        if res.is_refusal:
-            tag_html += '<span class="badge badge-guardrail">🛡️ Recusa de Segurança / Ética</span>'
-        else:
-            tag_html += '<span class="badge badge-ok">✅ Resposta Validada</span>'
+                tag_html += '<span class="badge badge-agregada">Agregada (Metricas)</span>'
 
-        tag_html += f'<span class="badge badge-normativa">⏱️ {res.latency_ms} ms</span>'
+        # Sempre marca ChromaDB (semantico) pois e o motor principal
+        tag_html += '<span class="badge badge-chroma">ChromaDB (Semantico)</span>'
+
+        if res.is_refusal:
+            tag_html += '<span class="badge badge-guardrail">Recusa de Seguranca / Etica</span>'
+        else:
+            tag_html += '<span class="badge badge-ok">Resposta Validada</span>'
+
+        tag_html += f'<span class="badge badge-normativa">{res.latency_ms} ms</span>'
         tag_html += f'<span class="badge badge-estruturada">🆔 Run: {res.run_id[:8]}...</span>'
         
         st.markdown(tag_html, unsafe_allow_html=True)

@@ -19,9 +19,10 @@ class AcademicRAGPipeline:
     def __init__(self):
         self.index = VectorIndex()
         self._initialize_index()
+        self._ensure_databases()
 
     def _initialize_index(self):
-        """Carrega ou constrói o índice com cache em disco."""
+        """Carrega ou constroi o indice BM25 com cache em disco."""
         if not self.index.load_local():
             if CHUNKS_FILE.exists():
                 with open(CHUNKS_FILE, "r", encoding="utf-8") as f:
@@ -30,9 +31,31 @@ class AcademicRAGPipeline:
                 self.index.build_index(chunks)
             else:
                 print(
-                    "[!] chunks_v1.json não encontrado. "
+                    "[!] chunks_v1.json nao encontrado. "
                     "Execute `python -m src.ingest` primeiro."
                 )
+
+    def _ensure_databases(self):
+        """Garante que SQLite e ChromaDB existem e estao populados."""
+        from src.db_sql import build_sql_db, DB_PATH
+        from src.db_chroma import build_chroma_index, get_stats
+
+        # SQLite: cria se nao existe
+        if not DB_PATH.exists():
+            print("[Pipeline] Construindo SQLite pela primeira vez...")
+            build_sql_db(force=True)
+
+        # ChromaDB: cria se vazio
+        stats = get_stats()
+        if sum(stats.values()) == 0:
+            print("[Pipeline] Construindo ChromaDB pela primeira vez...")
+            if CHUNKS_FILE.exists():
+                with open(CHUNKS_FILE, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    chunks = [DocumentChunk(**item) for item in data]
+                build_chroma_index(chunks, force=True)
+            else:
+                print("[!] Sem chunks para indexar no ChromaDB.")
 
     def _persist_history(
         self,
@@ -80,7 +103,7 @@ class AcademicRAGPipeline:
             query_id=query_id
         )
 
-        # 3. Recuperação Híbrida (Dense + BM25 + RRF)
+        # 3. Recuperacao Hibrida (ChromaDB + BM25 + SQL + RRF + Reranker)
         retrieved_chunks = retrieve_chunks(
             analysis,
             self.index,
