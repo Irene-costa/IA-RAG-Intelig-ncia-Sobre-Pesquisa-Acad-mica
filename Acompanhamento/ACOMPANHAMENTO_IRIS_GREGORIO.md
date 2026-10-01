@@ -64,3 +64,23 @@ Depois executei a suíte completa de testes com `python -m pytest -v`. Foram exe
 Todos os 10 testes foram aprovados, sem falhas.
 
 Essa validação ajudou a confirmar que os principais componentes já implementados no projeto continuam funcionando corretamente.
+
+## 30/09/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje continuei verificando o estado atual do projeto e conferindo alguns pontos que ainda precisavam ser validados.
+
+Primeiro revisei o `src/pipeline.py`, o `src/schema.py` e o `src/generate.py` para confirmar se as fontes utilizadas nas respostas estavam sendo registradas corretamente. Verifiquei que o `sources_used` está sendo preenchido e que a estrutura do `RAGResponse` está correta.
+
+Depois conferi os resultados do benchmark e confirmei que existem 20 resultados, correspondentes às questões Q01 a Q20.
+
+Também verifiquei os guardrails. Os casos Q05, Q06 e Q20 foram analisados e os três retornaram `is_refusal: True`, mostrando que as solicitações previstas para recusa estão sendo bloqueadas corretamente.
+
+Na sequência, conferi a parte de mascaramento de e-mails. O código já possui essa proteção por meio da função `mask_sensitive_emails`, porém nenhum dos 20 resultados atuais do benchmark acionou esse caso, então essa parte ainda não foi validada por um caso específico.
+
+Também pesquisei no código se já existiam métricas do RAG Triad, como faithfulness, context relevance e answer relevance, mas não encontrei essa implementação.
+
+Por fim, confirmei que o arquivo `RELATORIO.md` ainda não foi criado.
+
+Com essas verificações, consegui identificar melhor o que já está funcionando no projeto e quais pontos ainda precisam ser trabalhados antes da finalização.
