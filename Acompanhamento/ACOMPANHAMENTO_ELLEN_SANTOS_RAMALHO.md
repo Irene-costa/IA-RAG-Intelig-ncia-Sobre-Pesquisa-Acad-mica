@@ -54,7 +54,7 @@
 
 # Encontro 9 02/10/26
 
-* Estudei um pouco mais sobre o projeto e suas funcionalidades.
+* Estudei um pouco mais sobre o projeto.
 * Tivemos uma pequena apresentação da nossa equipe sobre o projeto para o professor Felipe.
 
 
