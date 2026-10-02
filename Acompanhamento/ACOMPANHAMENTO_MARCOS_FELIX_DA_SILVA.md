@@ -36,3 +36,9 @@
 # Encontro 8 30/09/2026
     Hoje eu fui responsável por adicionar o banco SQL e o ChromaDB no projeto, consegui adicionar os dois bancos e fazer testes para verificar se está funcionando corretamente. Pelos meus poucos testes parece que funcionou normal, mas tive problemas com quedas de energia e não consegi fazer mais nada além disso.
     
+
+# Encontro 9 02/10/2026
+    Hoje estruturei uma base de apresentação do nosso projeto, discuti com o grupo detalhes para a apresentação. Depois da apresentação anotei feedback do professor para ajustes e melhorias na aplicação, pesquisei melhores maneiras de conseguir implementar o log e o histórico de tudo que é puxado pelo rag para a IA, e os detalhes de todas as buscas feitas nos bancos.
+
+
+    
