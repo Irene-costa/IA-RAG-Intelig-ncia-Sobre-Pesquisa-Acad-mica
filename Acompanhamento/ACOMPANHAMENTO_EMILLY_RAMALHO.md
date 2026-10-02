@@ -50,3 +50,9 @@
 * Aproveitei o dia para **explorar melhor o código-fonte**, entendendo a organização dos arquivos, a função de cada parte e como as informações percorrem o sistema.
 * Além disso, continuei **me familiarizando com o projeto e com as tecnologias utilizadas**, buscando entender melhor seu funcionamento e as próximas etapas de desenvolvimento.
 * Por fim, instalei as dependências necessárias para o funcionamento do ChromaDB, deixando o ambiente preparado para a utilização e realização dos próximos testes.
+
+# Encontro 9 02/09/26
+
+* Estudei novamente as implementações para entender melhor, passo a passo, o funcionamento do código.
+* Participei de uma pequena apresentação do projeto com o Felipe, onde foram levantadas possíveis melhorias e ajustes.
+* Testei novamente as aplicações para validar o funcionamento.
