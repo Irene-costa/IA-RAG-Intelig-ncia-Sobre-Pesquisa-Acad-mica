@@ -135,3 +135,25 @@ Dediquei o dia ao estudo e análise da estrutura do código do projeto, além da
 - Executar os scripts de banco de dados (`db_setup.py` e `db_sql.py`) para validar a criação e inserção na base SQL.
 - Dar início à estruturação das tabelas de vetores/embeddings no SQL (ex: PostgreSQL/`pgvector` ou SQLite).
 - Apresentar ao grupo as conclusões da análise do código e alinhar as próximas etapas de implementação do banco SQL.
+
+## Encontro 9 - 02/10/2026
+
+### O que fiz hoje:
+
+Realizei o estudo aprofundado dos módulos do projeto, participei de uma breve apresentação com o professor para demonstrar o progresso do Cenário 3 (FAPERJ/CNPq) e iniciei a organização das etapas de apresentação do grupo.
+
+### Atividades Realizadas Hoje:
+
+1. Apresentação de Progresso ao Professor
+    - Participei de uma breve apresentação do projeto ao professor, demonstrando o estado atual da solução e o alinhamento dos logs e módulos para a defesa do grupo.
+2. Estudo e Mapeamento da Arquitetura
+    - Analisei a estrutura de pastas do projeto (`app/`, `src/`, `data/`, `eval/`), compreendendo a responsabilidade de cada módulo no fluxo do RAG.
+    - Mapeei o funcionamento das áreas da interface web em Streamlit (`Consulta RAG & Chat`, `Descoberta Automática`, `Gestão do Corpus`, `Observabilidade & Logs` e `Benchmark & Personas`).
+3. Organização da Apresentação Final
+    - Iniciei com a equipe a definição da divisão dos tópicos e dos módulos/logs individuais que cada integrante irá explicar durante a apresentação final.
+
+### Próximos Passos (Para o Próximo Encontro):
+
+- Definir exatamente qual módulo/log ficarei responsável por apresentar em detalhe.
+- Treinar a explicação técnica do fluxo de dados e da execução do módulo selecionado.
+- Estruturar a migração da base vetorial para o banco de dados SQL conforme a orientação acadêmica.
