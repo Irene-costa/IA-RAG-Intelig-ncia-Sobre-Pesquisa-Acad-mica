@@ -51,3 +51,10 @@
 * Finalização da instalação e configuração das extensões necessárias para utilização do ChromaDB no projeto.
 * Exploração de algumas funcionalidades do projeto, buscando entender melhor seu funcionamento e comportamento.
 * Dedicação de parte do dia ao estudo e à análise da estrutura do projeto, com o objetivo de compreender melhor os componentes, funcionalidades e integrações existentes.
+
+# Encontro 9 02/10/26
+
+* Estudei um pouco mais sobre o projeto e suas funcionalidades.
+* Tivemos uma pequena apresentação da nossa equipe sobre o projeto para o professor Felipe.
+
+
