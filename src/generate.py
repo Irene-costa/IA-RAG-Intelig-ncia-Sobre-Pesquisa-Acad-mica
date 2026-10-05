@@ -75,12 +75,14 @@ def generate_rag_response(
     chunks: List[DocumentChunk],
     run_id: str,
     query_id: str = "q_0000",
+    db_queries: Dict = None,
 ) -> RAGResponse:
     """
     Gera a resposta final do pipeline RAG aplicando síntese do LLM e guardrails.
     """
     t_start = time.time()
     query = analysis.original_query
+    db_queries = db_queries or {}
 
     # Verificação de Guardrail de Entrada
     should_refuse, refusal_reason = evaluate_query_guardrails(query)
@@ -102,6 +104,7 @@ def generate_rag_response(
             is_refusal=True,
             refusal_reason=refusal_reason,
             latency_ms=int((time.time() - t_start) * 1000),
+            db_queries=db_queries,
         )
 
     # Seleciona os melhores chunks e evita repetições excessivas
@@ -238,4 +241,5 @@ def generate_rag_response(
         sources_used=sources_metadata,
         is_refusal=False,
         latency_ms=total_latency,
+        db_queries=db_queries,
     )

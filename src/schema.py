@@ -51,3 +51,4 @@ class RAGResponse(BaseModel):
     refusal_reason: Optional[str] = Field(None, description="Motivo da recusa caso is_refusal=True")
     latency_ms: int = 0
     generated_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    db_queries: Dict[str, Any] = Field(default_factory=dict, description="Detalhes das consultas executadas nos bancos (SQLite, ChromaDB, BM25)")

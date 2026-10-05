@@ -203,6 +203,24 @@ def load_recent_logs(limit=50):
     return logs[-limit:]
 
 
+def load_search_history(limit=100):
+    records = []
+    history_file = DATA_DIR / "history.jsonl"
+    search_history_file = DATA_DIR / "search_history.jsonl"
+    
+    target_f = search_history_file if search_history_file.exists() else history_file
+    if target_f.exists():
+        try:
+            with open(target_f, "r", encoding="utf-8") as f:
+                for line in f:
+                    if line.strip():
+                        records.append(json.loads(line))
+        except Exception:
+            pass
+    return list(reversed(records[-limit:]))
+
+
+
 # ---------------------------------------------------------
 # Barra Lateral (Sidebar)
 # ---------------------------------------------------------
@@ -255,6 +273,7 @@ with st.sidebar:
             "💬 Consulta RAG & Chat",
             "🌐 Descoberta Automática de Arquivos",
             "📚 Gestão do Corpus & Ingestão",
+            "📜 Histórico de Pesquisas",
             "📊 Observabilidade & Logs",
             "🧪 Benchmark & Personas"
         ]
@@ -263,6 +282,7 @@ with st.sidebar:
     st.markdown("---")
     st.caption(f"**Modelo:** `{GENERATION_MODEL}`")
     st.caption(f"**Embeddings:** `{EMBEDDING_MODEL}`")
+
 
 
 # ---------------------------------------------------------
@@ -365,9 +385,79 @@ if menu == "💬 Consulta RAG & Chat":
         if res.is_refusal and res.refusal_reason:
             st.warning(f"**Motivo da Recusa / Salvaguarda Ética:** {res.refusal_reason}")
 
+        # Detalhes das Pesquisas Executadas nos Bancos
+        if hasattr(res, "db_queries") and res.db_queries:
+            with st.expander("🔍 Consultas Executadas nos Bancos de Dados (SQLite · ChromaDB · BM25)", expanded=True):
+                db_q = res.db_queries
+
+                tab_sql, tab_chroma, tab_bm25 = st.tabs(["🗄️ SQLite", "🎯 ChromaDB", "🔤 BM25 + RRF"])
+
+                with tab_sql:
+                    sq_info = db_q.get("sqlite", {})
+                    if sq_info.get("usou_sql") and sq_info.get("consultas"):
+                        for idx_q, q_item in enumerate(sq_info["consultas"]):
+                            reg = q_item.get("registros_retornados", 0)
+                            badge_color = "#34d399" if reg > 0 else "#f87171"
+                            st.markdown(
+                                f"**Consulta {idx_q + 1}:** {q_item.get('descricao')} "
+                                f"→ <span style='color:{badge_color}; font-weight:600'>{reg} registro(s) retornado(s)</span>",
+                                unsafe_allow_html=True
+                            )
+                            st.code(q_item.get("sql", ""), language="sql")
+                            if idx_q < len(sq_info["consultas"]) - 1:
+                                st.markdown("---")
+                    else:
+                        st.info("Nenhuma consulta relacional foi necessária para esta pergunta. A busca foi concentrada em semântica (ChromaDB) e palavras-chave (BM25).")
+
+                with tab_chroma:
+                    ch_info = db_q.get("chromadb", {})
+                    bases = ch_info.get("bases_consultadas", [])
+                    modo = ch_info.get("modo", "—")
+                    top_k = ch_info.get("top_k_buscado", "—")
+                    chunks_ret = ch_info.get("chunks_retornados", "—")
+                    query_txt = ch_info.get("query_texto", "—")
+
+                    st.markdown("**Termo buscado no ChromaDB (vetor de embedding):**")
+                    st.code(f'"{query_txt}"', language="text")
+
+                    c1, c2 = st.columns(2)
+                    with c1:
+                        st.markdown(f"**Modo:** `{modo}`")
+                        st.markdown(f"**Top-K solicitado:** `{top_k}` chunks")
+                    with c2:
+                        st.markdown(f"**Chunks retornados:** `{chunks_ret}`")
+                        st.markdown(f"**Diretório:** `{ch_info.get('diretorio', 'data/chroma_db/')}`")
+
+                    st.markdown("**Coleções consultadas:**")
+                    for b in (bases if isinstance(bases, list) else [bases]):
+                        st.markdown(f"- `{b}`")
+
+                with tab_bm25:
+                    bm_info = db_q.get("bm25", {})
+                    rr_info = db_q.get("rrf_rerank", {})
+
+                    st.markdown("**Termo buscado no índice BM25 (palavras-chave):**")
+                    st.code(f'"{bm_info.get("termos_busca", "—")}"', language="text")
+
+                    filtros = bm_info.get("filtros_aplicados", {})
+                    if filtros:
+                        st.markdown("**Filtros estruturados aplicados:**")
+                        for k, v in filtros.items():
+                            st.markdown(f"- `{k}` = `{v}`")
+
+                    c1, c2 = st.columns(2)
+                    with c1:
+                        st.metric("Chunks BM25 retornados", bm_info.get("chunks_retornados", 0))
+                    with c2:
+                        st.metric("Candidatos após fusão RRF", rr_info.get("candidatos_fusoes", 0))
+
+                    st.caption(f"Modelo Re-ranker: `{rr_info.get('modelo_reranker', '—')}`  |  Chunks finais selecionados: `{rr_info.get('chunks_finais_selecionados', '—')}`")
+
+
         # Evidências e Chunks Recuperados
         st.markdown("---")
         st.markdown(f"#### 🔎 Evidências e Trechos Recuperados ({len(res.sources_used)} fontes)")
+
         
         if res.sources_used:
             for idx, src in enumerate(res.sources_used):
@@ -554,12 +644,120 @@ elif menu == "📚 Gestão do Corpus & Ingestão":
 
 
 # ---------------------------------------------------------
-# 4. ABA: OBSERVABILIDADE & LOGS
+# 4. ABA: HISTÓRICO DE PESQUISAS
+# ---------------------------------------------------------
+elif menu == "📜 Histórico de Pesquisas":
+    st.markdown("""
+    <div class="main-header">
+        <h1>📜 Histórico de Pesquisas</h1>
+        <p>Registro completo de todas as perguntas feitas ao sistema, com os bancos consultados, consultas SQL executadas e tempo de resposta.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    history = load_search_history(limit=100)
+
+    if not history:
+        st.info("Nenhuma pesquisa realizada ainda. Faça uma consulta na aba 💬 Consulta RAG & Chat.")
+    else:
+        # Métricas resumidas
+        total_searches = len(history)
+        refusals = sum(1 for h in history if h.get("is_refusal"))
+        avg_lat = sum(h.get("latency_ms", 0) for h in history) / total_searches if total_searches else 0
+
+        m1, m2, m3 = st.columns(3)
+        with m1:
+            st.metric("Total de Pesquisas Realizadas", total_searches)
+        with m2:
+            st.metric("Recusas Éticas / Guardrails", refusals)
+        with m3:
+            st.metric("Latência Média (ms)", f"{avg_lat:.0f}")
+
+        st.markdown("---")
+
+        # Botão para limpar histórico
+        if st.button("🗑️ Limpar Histórico", type="secondary"):
+            for hf in [DATA_DIR / "history.jsonl", DATA_DIR / "search_history.jsonl"]:
+                if hf.exists():
+                    hf.write_text("", encoding="utf-8")
+            st.success("Histórico limpo com sucesso!")
+            st.rerun()
+
+        st.markdown("### 🗂️ Pesquisas Recentes")
+
+        for i, record in enumerate(history):
+            db_q = record.get("db_queries", {})
+            sql_info = db_q.get("sqlite", {})
+            ch_info = db_q.get("chromadb", {})
+            bm_info = db_q.get("bm25", {})
+            rr_info = db_q.get("rrf_rerank", {})
+
+            sql_count = len(sql_info.get("consultas", []))
+            ch_chunks = ch_info.get("chunks_retornados", "—")
+            bm_chunks = bm_info.get("chunks_retornados", "—")
+            is_refusal = record.get("is_refusal", False)
+
+            header_icon = "🚫" if is_refusal else "✅"
+            header_label = f"[{record.get('timestamp', '')}]  {header_icon}  {record.get('query', '')[:100]}"
+
+            with st.expander(header_label, expanded=(i == 0)):
+                col_q, col_meta = st.columns([3, 1])
+                with col_q:
+                    st.markdown(f"**Pergunta:** {record.get('query', '')}")
+                    st.markdown(f"""
+                    <div class="answer-box" style="padding:12px 16px; margin-top:8px; font-size:0.9rem;">
+                        {record.get('answer', '')[:600].replace(chr(10), '<br>')}{'...' if len(record.get('answer','')) > 600 else ''}
+                    </div>
+                    """, unsafe_allow_html=True)
+                with col_meta:
+                    st.markdown("**Metadados:**")
+                    st.markdown(f"🕐 `{record.get('latency_ms', 0)} ms`")
+                    st.markdown(f"🆔 `{record.get('run_id', '')[:8]}...`")
+                    if is_refusal:
+                        st.markdown('<span class="badge badge-guardrail">Recusa Ética</span>', unsafe_allow_html=True)
+                    else:
+                        st.markdown('<span class="badge badge-ok">Respondido</span>', unsafe_allow_html=True)
+
+                st.markdown("---")
+                st.markdown("**🔍 Bancos Consultados nesta Pesquisa:**")
+
+                b1, b2, b3 = st.columns(3)
+                with b1:
+                    st.markdown("**🗄️ SQLite**")
+                    if sql_count > 0:
+                        st.markdown(f'<span class="badge badge-sql">{sql_count} consulta(s) SQL</span>', unsafe_allow_html=True)
+                        for sq in sql_info.get("consultas", []):
+                            st.caption(f"Tabela `{sq.get('tabela')}` → {sq.get('registros_retornados', 0)} registros")
+                    else:
+                        st.caption("Não acionado nesta query")
+                with b2:
+                    st.markdown("**🎯 ChromaDB**")
+                    st.markdown(f'<span class="badge badge-chroma">{ch_chunks} chunks vetoriais</span>', unsafe_allow_html=True)
+                    bases = ch_info.get("bases_consultadas", [])
+                    if isinstance(bases, list):
+                        for b in bases:
+                            st.caption(f"Base: `{b}`")
+                with b3:
+                    st.markdown("**⚡ BM25 + RRF**")
+                    st.caption(f"BM25: {bm_chunks} chunks léxicos")
+                    st.caption(f"RRF fundiu: {rr_info.get('candidatos_fusoes', '—')} candidatos")
+                    st.caption(f"Final selecionado: {rr_info.get('chunks_finais_selecionados', '—')} chunks")
+
+                # Mostrar consultas SQL completas se existirem
+                if sql_info.get("consultas"):
+                    with st.expander("📋 Ver SQL Executado", expanded=False):
+                        for sq in sql_info["consultas"]:
+                            st.markdown(f"**Tabela:** `{sq.get('tabela')}` — {sq.get('descricao')}")
+                            st.code(sq.get("sql", ""), language="sql")
+
+
+# ---------------------------------------------------------
+# 5. ABA: OBSERVABILIDADE & LOGS
 # ---------------------------------------------------------
 elif menu == "📊 Observabilidade & Logs":
     st.markdown("""
     <div class="main-header">
         <h1>📊 Observabilidade & Auditoria de Logs</h1>
+
         <p>Acompanhe latências, tokens consumidos, histórico de rotas e salvaguardas éticas em conformidade com o cenário.</p>
     </div>
     """, unsafe_allow_html=True)

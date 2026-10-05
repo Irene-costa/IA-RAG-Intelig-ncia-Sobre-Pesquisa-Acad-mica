@@ -66,6 +66,7 @@ class AcademicRAGPipeline:
     ):
         """Persiste o histórico das interações do pipeline."""
         HISTORY_FILE.parent.mkdir(parents=True, exist_ok=True)
+        search_history_file = BASE_DIR / "data" / "search_history.jsonl"
 
         record = {
             "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -74,12 +75,16 @@ class AcademicRAGPipeline:
             "query": query,
             "answer": response.answer,
             "is_refusal": response.is_refusal,
+            "refusal_reason": response.refusal_reason,
             "latency_ms": response.latency_ms,
             "sources_used": response.sources_used,
+            "db_queries": response.db_queries or {},
         }
 
-        with open(HISTORY_FILE, "a", encoding="utf-8") as f:
-            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        # Salva tanto no history.jsonl quanto no search_history.jsonl
+        for target_file in [HISTORY_FILE, search_history_file]:
+            with open(target_file, "a", encoding="utf-8") as f:
+                f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
     def run(self, query: str, query_id: str = "q_0001") -> RAGResponse:
         """Executa o pipeline completo de 9 estágios do Adaptive RAG."""
@@ -104,11 +109,12 @@ class AcademicRAGPipeline:
         )
 
         # 3. Recuperacao Hibrida (ChromaDB + BM25 + SQL + RRF + Reranker)
-        retrieved_chunks = retrieve_chunks(
+        retrieved_chunks, db_queries = retrieve_chunks(
             analysis,
             self.index,
             run_id=run_id,
-            top_k=6
+            top_k=6,
+            return_queries_info=True
         )
 
         # 4. Geração e Validação de Guardrails
@@ -116,7 +122,8 @@ class AcademicRAGPipeline:
             analysis,
             retrieved_chunks,
             run_id=run_id,
-            query_id=query_id
+            query_id=query_id,
+            db_queries=db_queries
         )
 
         # 5. Persistência do histórico
@@ -145,6 +152,7 @@ class AcademicRAGPipeline:
         )
 
         return response
+
 
 
 if __name__ == "__main__":
