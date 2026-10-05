@@ -57,4 +57,9 @@
 * Estudei um pouco mais sobre o projeto.
 * Tivemos uma pequena apresentação da nossa equipe sobre o projeto para o professor Felipe.
 
+# Encontro 10 05/10/26
 
+* Realizei testes nas funcionalidades do sistema.
+* Instalei as dependências necessárias para o projeto.
+* Foi realizada a divisão das etapas que cada integrante ficará responsável.
+* Estudei as partes do projeto pela qual fiquei responsável.
