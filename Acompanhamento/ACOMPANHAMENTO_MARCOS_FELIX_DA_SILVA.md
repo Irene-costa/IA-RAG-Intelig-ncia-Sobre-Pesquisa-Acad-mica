@@ -40,5 +40,8 @@
 # Encontro 9 02/10/2026
     Hoje estruturei uma base de apresentação do nosso projeto, discuti com o grupo detalhes para a apresentação. Depois da apresentação anotei feedback do professor para ajustes e melhorias na aplicação, pesquisei melhores maneiras de conseguir implementar o log e o histórico de tudo que é puxado pelo rag para a IA, e os detalhes de todas as buscas feitas nos bancos.
 
+# Encontro 10 05/10/2026
+    Finalizei a implementação do salvamento dos logs de tudo que foi perguntado ao nosso rag, adicionei a opção de mostrar exatamente a requisição que foi feita no banco de dados conforme solicitado pelo professor. Depois conversei com os membros do grupo e definimos a ordem de apresentação e o que cada um vai apresentar. Todos ficamos estudando as partes atribuidas a cada um, e depois vamos estudar o código completo.
+
 
     
