@@ -46,3 +46,12 @@
     - testes de interação com a interface
     - instalação de novas dependências
     - troca com o grupo sobre alinhamento com o projeto
+
+## Encontro 8 - 05/10/2026
+
+    - nova bateria de testes
+    - teste de interface
+    - teste de funcionalidades
+    - teste da nova feature de histórico de interação
+    - teste da nova feature de SQL gerado
+    - construção e pesquisa da apresentação final
