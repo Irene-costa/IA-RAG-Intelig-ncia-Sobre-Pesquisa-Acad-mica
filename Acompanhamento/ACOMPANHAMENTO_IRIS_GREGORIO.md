@@ -92,3 +92,15 @@ Com essas verificações, consegui identificar melhor o que já está funcionand
 Hoje realizei testes no projeto para verificar o funcionamento dos componentes já implementados. Ao final da execução, todos os 10 testes foram aprovados, sem falhas.
 
 Essa validação permitiu confirmar que os principais componentes do projeto continuavam funcionando corretamente.
+
+## 05/10/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje realizei novos testes no projeto para verificar o funcionamento dos testes automatizados. Primeiro executei a suíte completa com `pytest`, mas a execução foi interrompida durante a coleta do arquivo `tests/test_unitarios.py` por um erro relacionado à biblioteca `grpc`, mais especificamente à DLL `cygrpc`, que foi bloqueada por uma política de Controle de Aplicativo do Windows.
+
+Para separar o problema do ambiente dos testes do projeto, executei o teste `tests/test_chunks.py` de forma isolada. Nesse caso, o teste foi executado normalmente e apresentou o resultado de 1 teste passado, confirmando que o contrato dos chunks e seus metadados obrigatórios continuam funcionando.
+
+Também tentei verificar especificamente o teste relacionado ao RRF. Porém, a importação de `src.retrieve` continua dependendo do `chromadb` e do `grpc`, impedindo que o teste seja coletado. Tentei ainda isolar a função `compute_rrf`, mas a função utiliza tipos definidos no próprio módulo, como `DocumentChunk`, o que exigiria reproduzir parte do contexto do arquivo apenas para o teste.
+
+Com isso, mantive o código do projeto sem alterações desnecessárias. Os testes realizados ajudaram a identificar que o bloqueio atual está relacionado ao ambiente de execução do Windows e não a uma falha identificada na lógica do RAG. O teste de chunks permanece aprovado.
