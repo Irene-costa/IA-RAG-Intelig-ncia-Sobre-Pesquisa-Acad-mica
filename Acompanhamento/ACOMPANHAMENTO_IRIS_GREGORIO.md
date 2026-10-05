@@ -84,3 +84,11 @@ Também pesquisei no código se já existiam métricas do RAG Triad, como faithf
 Por fim, confirmei que o arquivo `RELATORIO.md` ainda não foi criado.
 
 Com essas verificações, consegui identificar melhor o que já está funcionando no projeto e quais pontos ainda precisam ser trabalhados antes da finalização.
+
+## 02/10/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje realizei testes no projeto para verificar o funcionamento dos componentes já implementados. Ao final da execução, todos os 10 testes foram aprovados, sem falhas.
+
+Essa validação permitiu confirmar que os principais componentes do projeto continuavam funcionando corretamente.
