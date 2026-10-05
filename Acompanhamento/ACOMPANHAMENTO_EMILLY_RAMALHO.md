@@ -51,8 +51,15 @@
 * Além disso, continuei **me familiarizando com o projeto e com as tecnologias utilizadas**, buscando entender melhor seu funcionamento e as próximas etapas de desenvolvimento.
 * Por fim, instalei as dependências necessárias para o funcionamento do ChromaDB, deixando o ambiente preparado para a utilização e realização dos próximos testes.
 
-# Encontro 9 02/09/26
+# Encontro 9 02/10/26
 
 * Estudei novamente as implementações para entender melhor, passo a passo, o funcionamento do código.
 * Participei de uma pequena apresentação do projeto com o Felipe, onde foram levantadas possíveis melhorias e ajustes.
 * Testei novamente as aplicações para validar o funcionamento.
+
+# Encontro 10 05/10/26
+
+* Testei a funcionalidade para entender melhor seu funcionamento.
+* Instalei as dependências necessárias para rodar o projeto.
+* Estudei o código para entender melhor cada parte e como as funcionalidades estão sendo implementadas.
+* Tivemos um alinhamento sobre a apresentação do projeto, organizando os pontos que serão apresentados e o que precisa ser ajustado.
