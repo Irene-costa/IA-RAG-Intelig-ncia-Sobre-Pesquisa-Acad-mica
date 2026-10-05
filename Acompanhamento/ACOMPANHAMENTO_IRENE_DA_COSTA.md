@@ -157,3 +157,23 @@ Realizei o estudo aprofundado dos módulos do projeto, participei de uma breve a
 - Definir exatamente qual módulo/log ficarei responsável por apresentar em detalhe.
 - Treinar a explicação técnica do fluxo de dados e da execução do módulo selecionado.
 - Estruturar a migração da base vetorial para o banco de dados SQL conforme a orientação acadêmica.
+
+## ENCONTRO 10 - 05/10/2026
+
+Definição oficial da divisão da apresentação do grupo e estudo aprofundado do módulo de Descoberta e Atualização de Arquivos sob minha responsabilidade.
+
+## O que fiz hoje:
+
+### Atividades Realizadas Hoje:
+
+1. Alinhamento da Apresentação do Grupo
+    - Confirmada a divisão das etapas da apresentação final, onde assumi a responsabilidade técnica do módulo de Descoberta e Atualização de Arquivos.
+2. Mapeamento do Módulo de Descoberta e Atualização
+    - Estudei o funcionamento do script de varredura automática (`src/auto_discover_corpus.py`) e a sincronização do inventário do corpus (`corpus_manifest.yaml`).
+    - Analisei como o sistema identifica novos documentos (PDFs/editais) na pasta de entrada e trata atualizações de arquivos existentes.
+    - Preparei o roteiro de apresentação em 1ª pessoa conectando meu módulo com a entrada de dados e a etapa posterior de ingestão no banco SQL.
+
+### Próximos Passos (Para o Próximo Encontro)
+
+- Testar a execução isolada do script de descoberta no terminal para demonstrar ao vivo durante a apresentação.
+- Alinhar com a Iris a transição perfeita dos metadados descobertos para o pipeline de ingestão e banco SQL.
