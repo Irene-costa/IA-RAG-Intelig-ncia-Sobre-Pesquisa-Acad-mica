@@ -14,7 +14,7 @@ precisos (ex: top artigos por citações, beneficiários de editais, pareceres).
 
 import json
 import time
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 from functools import lru_cache
 
 from src.index import VectorIndex
