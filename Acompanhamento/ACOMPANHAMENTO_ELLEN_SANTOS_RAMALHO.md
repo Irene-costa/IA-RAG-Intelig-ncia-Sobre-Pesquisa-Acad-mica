@@ -63,3 +63,8 @@
 * Instalei as dependências necessárias para o projeto.
 * Foi realizada a divisão das etapas que cada integrante ficará responsável.
 * Estudei as partes do projeto pela qual fiquei responsável.
+
+# Encontro 11 07/10/26
+
+* Realizei testes nas funcionalidades do sistema, verificando o funcionamento da aplicação.
+* Estudei e aprofundei os conhecimentos sobre a minha parte do projeto, relacionada à observabilidade e logs, buscando entender melhor o funcionamento e a aplicação desses recursos no sistema.
