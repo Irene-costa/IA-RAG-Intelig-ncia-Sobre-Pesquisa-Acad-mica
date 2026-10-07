@@ -177,3 +177,22 @@ Definição oficial da divisão da apresentação do grupo e estudo aprofundado 
 
 - Testar a execução isolada do script de descoberta no terminal para demonstrar ao vivo durante a apresentação.
 - Alinhar com a Iris a transição perfeita dos metadados descobertos para o pipeline de ingestão e banco SQL.
+
+### Encontro 11 - 07/10/2026
+
+#### Módulo: Descoberta e Atualização de Arquivos (Corpus & Ingestão)
+
+Responsável: Irene
+
+#### O que fiz Hoje:
+
+- Estudo e Validação do Módulo: Análise detalhada dos scripts do ecossistema de dados (`src/fetch_corpus.py` e `src/auto_discover_corpus.py`), mapeando a lógica de cálculo de hash `SHA-256`, varredura de editais e controle de integridade do corpus.
+- Pesquisa e Apoio Teórico: Consultas às IAs (Gemini e ChatGPT) para aprofundar o entendimento sobre seleção determinística, cálculo de integridade por blocos e estrutura de manifesto declarativo (`corpus_manifest.yaml`).
+- Documentação: Organização de anotações e pontos de atenção no Notion pessoal para estruturar o roteiro da explicação técnica para a apresentação do projeto.
+- Inspeção do Inventário: Verificação do `CORPUS_INVENTORY.md`, confirmando a consolidação das 4 bases com 12 arquivos (20.69 MB) e divergência zero em relação ao volume alvo.
+
+#### Próximos Passos:
+
+- Visão Holística do Desafio: Estudar o fluxo completo do projeto (integração entre RAG, Banco de Dados, Histórico, Observabilidade e Benchmark) para dominar a arquitetura de ponta a ponta e apoiar os colegas de grupo.
+- Treino Oral:Ensaiar a apresentação do fluxo de atualização do corpus focando nas rotinas de `fetch`, `update` e geração do inventário.
+- Integração: Alinhar a demonstração prática da aba no Streamlit (`auto_discover_corpus.py`) com os módulos de Ingestão e Consulta.
