@@ -104,3 +104,15 @@ Para separar o problema do ambiente dos testes do projeto, executei o teste `tes
 Também tentei verificar especificamente o teste relacionado ao RRF. Porém, a importação de `src.retrieve` continua dependendo do `chromadb` e do `grpc`, impedindo que o teste seja coletado. Tentei ainda isolar a função `compute_rrf`, mas a função utiliza tipos definidos no próprio módulo, como `DocumentChunk`, o que exigiria reproduzir parte do contexto do arquivo apenas para o teste.
 
 Com isso, mantive o código do projeto sem alterações desnecessárias. Os testes realizados ajudaram a identificar que o bloqueio atual está relacionado ao ambiente de execução do Windows e não a uma falha identificada na lógica do RAG. O teste de chunks permanece aprovado.
+
+## 07/10/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje continuei os testes do projeto para verificar se estava tudo funcionando corretamente. Durante a execução dos testes, apareceu um erro no arquivo `src/retrieve.py`, relacionado ao uso do `Any`, que não estava importado.
+
+Fiz a correção diretamente no arquivo e executei novamente os testes. Dessa vez, os 10 testes foram aprovados, sem nenhum erro.
+
+Depois disso, fiz o commit da correção no Git. Na hora de enviar para o GitHub, percebi que o repositório já tinha recebido novos commits do grupo. Então atualizei meu repositório utilizando `pull --rebase`, que foi concluído sem conflitos e manteve minha correção.
+
+Ao final, o projeto ficou atualizado com as alterações mais recentes do grupo e com a correção que realizei.
