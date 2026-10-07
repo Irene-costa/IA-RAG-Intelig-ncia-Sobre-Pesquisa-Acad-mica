@@ -33,21 +33,21 @@
     - discussão a respeito da relação arquivos locais/arquivos gerais (remotos)
     - padronização e atualização em relação ao que já foi feito pelo restante do grupo
 
-## Encontro 6 - 25/09/2026
+## Encontro 6 - 27/09/2026
 
     - bateria de testes do pipeline
     - atualização do projeto local
     - teste de interface
     - teste de consultas
 
-## Encontro 7 - 30/09/2026
+## Encontro 8 - 30/09/2026
 
     - configuração do chroma db
     - testes de interação com a interface
     - instalação de novas dependências
     - troca com o grupo sobre alinhamento com o projeto
 
-## Encontro 8 - 05/10/2026
+## Encontro 10 - 05/10/2026
 
     - nova bateria de testes
     - teste de interface
@@ -55,3 +55,8 @@
     - teste da nova feature de histórico de interação
     - teste da nova feature de SQL gerado
     - construção e pesquisa da apresentação final
+
+## Encontro 11 - 07/10/2026
+
+    - início do estudo do código completo para melhor entendimento
+    - desenvolvimento da apresentação final
