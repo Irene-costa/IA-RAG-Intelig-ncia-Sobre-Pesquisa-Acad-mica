@@ -43,5 +43,7 @@
 # Encontro 10 05/10/2026
     Finalizei a implementação do salvamento dos logs de tudo que foi perguntado ao nosso rag, adicionei a opção de mostrar exatamente a requisição que foi feita no banco de dados conforme solicitado pelo professor. Depois conversei com os membros do grupo e definimos a ordem de apresentação e o que cada um vai apresentar. Todos ficamos estudando as partes atribuidas a cada um, e depois vamos estudar o código completo.
 
+# Encontro 11 07/10/2026
+    Hoje fiquei estudando o código e principalmente a minha parte da apresentação, fiquei definindo abordagens e como farei a apresentação, detalhes, curiosidades e pontos importantes a serem citados.
 
     
