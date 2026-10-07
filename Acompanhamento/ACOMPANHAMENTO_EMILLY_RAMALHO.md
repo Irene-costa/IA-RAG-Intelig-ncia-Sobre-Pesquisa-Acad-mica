@@ -63,3 +63,9 @@
 * Instalei as dependências necessárias para rodar o projeto.
 * Estudei o código para entender melhor cada parte e como as funcionalidades estão sendo implementadas.
 * Tivemos um alinhamento sobre a apresentação do projeto, organizando os pontos que serão apresentados e o que precisa ser ajustado.
+
+# Encontro 11 07/10/26
+
+* Dei continuidade aos testes da aplicação, validando o funcionamento das funcionalidades e observando possíveis comportamentos.
+* Aprofundei meus estudos sobre a funcionalidade de histórico de pesquisa, buscando compreender melhor seu fluxo e comportamento dentro da aplicação.
+* Realizei uma análise mais detalhada do código relacionado à funcionalidade, destrinchando sua estrutura, lógica e integração com as demais partes do sistema.
