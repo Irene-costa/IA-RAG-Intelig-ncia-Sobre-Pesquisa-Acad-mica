@@ -68,3 +68,9 @@
 
 * Realizei testes nas funcionalidades do sistema, verificando o funcionamento da aplicação.
 * Estudei e aprofundei os conhecimentos sobre a minha parte do projeto, relacionada à observabilidade e logs, buscando entender melhor o funcionamento e a aplicação desses recursos no sistema.
+
+# Encontro 12 09/10/26
+
+* Continuei estudando sobre logs e observabilidade, buscando aprofundar meus conhecimentos e compreender melhor esses conceitos.
+* Busquei entender a importância dos logs e da observabilidade no projeto, procurando compreender como esses recursos contribuem para o acompanhamento do funcionamento da aplicação.
+* Procurei identificar quais partes do código estão relacionadas aos logs e à observabilidade, buscando compreender melhor como esses recursos estão presentes no projeto.
