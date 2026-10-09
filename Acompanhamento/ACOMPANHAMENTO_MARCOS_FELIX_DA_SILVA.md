@@ -46,4 +46,7 @@
 # Encontro 11 07/10/2026
     Hoje fiquei estudando o código e principalmente a minha parte da apresentação, fiquei definindo abordagens e como farei a apresentação, detalhes, curiosidades e pontos importantes a serem citados.
 
+# Encontro 12 09/10/2026
+    Hoje não conseguimos fazer a apresentação pois não tinhamos todos os membros presentes, então ficamos estudando e nos preparando para apresentação na próxima semana.
+
     
