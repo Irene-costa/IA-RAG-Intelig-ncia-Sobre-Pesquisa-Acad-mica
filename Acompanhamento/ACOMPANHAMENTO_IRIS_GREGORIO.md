@@ -116,3 +116,20 @@ Fiz a correção diretamente no arquivo e executei novamente os testes. Dessa ve
 Depois disso, fiz o commit da correção no Git. Na hora de enviar para o GitHub, percebi que o repositório já tinha recebido novos commits do grupo. Então atualizei meu repositório utilizando `pull --rebase`, que foi concluído sem conflitos e manteve minha correção.
 
 Ao final, o projeto ficou atualizado com as alterações mais recentes do grupo e com a correção que realizei.
+
+
+## 09/10/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje continuei a validação do projeto Adaptive RAG, do Cenário 3 — Inteligência sobre Pesquisa Acadêmica. Executei os testes `tests/test_chunks.py`, `tests/test_guardrails.py` e `tests/test_router.py`, obtendo 8 testes aprovados.
+
+Também investiguei uma inconsistência na resposta da questão Q01 do benchmark, relacionada à identificação de publicações sobre saúde digital e seus financiamentos. Durante a análise, identifiquei que a rotina de carga SQL em `src/db_sql.py` consultava o campo `grants`, mas não contemplava adequadamente o campo `funders` presente nos dados sintéticos.
+
+Realizei uma alteração na rotina para incluir a leitura alternativa de `funders` e criei uma cópia de segurança do banco SQLite antes de continuar a investigação.
+
+Na verificação do banco, constatei que a tabela `artigos` possui 157 registros, todos de origem OpenAlex, sem os registros sintéticos esperados. Por esse motivo, a consulta por financiamento da FAPERJ retornou uma lista vazia.
+
+A correção do código ainda precisa ser validada com a carga dos dados sintéticos e uma nova consulta SQL. Também permanecem pendentes a investigação da resposta contraditória da Q01, a validação final das alterações e a atualização do acompanhamento no Git.
+
+Utilizei a IA como apoio para analisar o código, interpretar os resultados dos comandos no PowerShell e orientar os testes. Não considerei a correção concluída, pois ainda é necessário validar o carregamento dos dados.
