@@ -196,3 +196,25 @@ Responsável: Irene
 - Visão Holística do Desafio: Estudar o fluxo completo do projeto (integração entre RAG, Banco de Dados, Histórico, Observabilidade e Benchmark) para dominar a arquitetura de ponta a ponta e apoiar os colegas de grupo.
 - Treino Oral:Ensaiar a apresentação do fluxo de atualização do corpus focando nas rotinas de `fetch`, `update` e geração do inventário.
 - Integração: Alinhar a demonstração prática da aba no Streamlit (`auto_discover_corpus.py`) com os módulos de Ingestão e Consulta.
+
+## Encontro 12 - 09/10/2026
+
+ ## O que fiz hoje:
+
+Dia dedicado integralmente ao estudo teórico, revisão de código e alinhamento do desafio para a apresentação.
+
+### Atividades Realizadas Hoje:
+
+1. Estudo Individual do Projeto e do Desafio
+    - Revisão aprofundada dos requisitos do Cenário 3 (Pesquisa Acadêmica - FAPERJ/CNPq) e da arquitetura do projeto.
+    - Leitura e análise linha a linha do código-fonte do módulo de Descoberta e Atualização de Arquivos(`src/fetch_corpus.py` e `src/auto_discover_corpus.py`).
+2. Pesquisa e Documentação
+    - Pesquisa de apoio técnico utilizando assistentes de IA (Gemini e ChatGPT) para consolidar conceitos de seleção determinística e integridade via SHA-256.
+    - Organização de notas de estudo e roteiro explicativo no Notion pessoal.
+3. Visão Geral do Ecossistema do Grupo
+    - Estudo das demais etapas do pipeline (Ingestão, SQL/Histórico, Chat RAG, Observabilidade e Benchmark) para entender a integração completa entre os integrantes do grupo.
+
+### Próximos Passos
+
+- Treinar a apresentação oral do fluxo de atualização do corpus e do inventário (`CORPUS_INVENTORY.md`).
+- Simular com o grupo a demonstração prática da aba do Streamlit.
