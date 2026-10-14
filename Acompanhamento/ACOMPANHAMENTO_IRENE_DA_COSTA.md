@@ -218,3 +218,17 @@ Dia dedicado integralmente ao estudo teórico, revisão de código e alinhamento
 
 - Treinar a apresentação oral do fluxo de atualização do corpus e do inventário (`CORPUS_INVENTORY.md`).
 - Simular com o grupo a demonstração prática da aba do Streamlit.
+
+# Encontro 13 - 14/10/2026
+
+## O que fiz Hoje:
+
+Dia dedicado integralmente ao estudo teórico, revisão de código e alinhamento do desafio para apresentação.
+
+### Atividades realizadas hoje:
+- Não progredi muito hoje, conversei no grupo de whatsapp com o grupo e estudamos como seria a apresentação.
+- Decidimos ter uma breve apresentação pro Felipe antes do dia da apresentação geral.
+
+### Próximos passos:
+- Combinar com o Felipe uma breve apresentação.
+- Estudar mais o código e treinar a apresentação oral da minha parte do desafio.

@@ -208,8 +208,15 @@ def _populate_artigos(conn: sqlite3.Connection) -> int:
             for grant in item.get("grants", []):
                 if isinstance(grant, dict):
                     fn = grant.get("funder_display_name")
-                    if fn:
+                    if fn and fn not in grants:
                         grants.append(fn)
+
+            if not grants:
+                for funder in item.get("funders", []):
+                    if isinstance(funder, dict):
+                        fn = funder.get("display_name")
+                        if fn and fn not in grants:
+                            grants.append(fn)
 
             abstract_idx = item.get("abstract_inverted_index")
             abstract_text = ""

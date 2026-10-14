@@ -69,3 +69,9 @@
 * Dei continuidade aos testes da aplicação, validando o funcionamento das funcionalidades e observando possíveis comportamentos.
 * Aprofundei meus estudos sobre a funcionalidade de histórico de pesquisa, buscando compreender melhor seu fluxo e comportamento dentro da aplicação.
 * Realizei uma análise mais detalhada do código relacionado à funcionalidade, destrinchando sua estrutura, lógica e integração com as demais partes do sistema.
+
+# Encontro 12 09/10/26
+
+* Continuei os estudos voltados ao código do projeto, buscando compreender melhor o funcionamento de cada parte da aplicação.
+* Realizei novos testes para verificar o funcionamento das funcionalidades implementadas.
+* Dei continuidade aos estudos relacionados à funcionalidade pela qual fiquei responsável, buscando entender melhor sua implementação e como ela se integra ao restante do sistema.
