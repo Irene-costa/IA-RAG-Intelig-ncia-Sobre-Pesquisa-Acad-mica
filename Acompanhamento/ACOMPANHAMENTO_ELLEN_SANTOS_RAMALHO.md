@@ -74,3 +74,7 @@
 * Continuei estudando sobre logs e observabilidade, buscando aprofundar meus conhecimentos e compreender melhor esses conceitos.
 * Busquei entender a importância dos logs e da observabilidade no projeto, procurando compreender como esses recursos contribuem para o acompanhamento do funcionamento da aplicação.
 * Procurei identificar quais partes do código estão relacionadas aos logs e à observabilidade, buscando compreender melhor como esses recursos estão presentes no projeto.
+
+# Encontro 12 14/10/26
+
+* Realizei estudos sobre a parte do projeto pela qual sou responsável, buscando compreender melhor a estrutura do código e o funcionamento do sistema.
