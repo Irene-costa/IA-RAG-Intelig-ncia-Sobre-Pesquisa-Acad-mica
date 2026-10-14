@@ -60,3 +60,8 @@
 
     - início do estudo do código completo para melhor entendimento
     - desenvolvimento da apresentação final
+
+## Encontro 13 - 14/10/2026
+
+    - continuação do estudo do código completo para melhor entendimento
+    - continuação do desenvolvimento da apresentação final
