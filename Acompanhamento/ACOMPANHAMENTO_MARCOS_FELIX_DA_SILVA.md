@@ -49,4 +49,6 @@
 # Encontro 12 09/10/2026
     Hoje não conseguimos fazer a apresentação pois não tinhamos todos os membros presentes, então ficamos estudando e nos preparando para apresentação na próxima semana.
 
+# Encontro 13 14/10/2026
+    Hoje fiquei estudando e organizando para a apresentação
     
