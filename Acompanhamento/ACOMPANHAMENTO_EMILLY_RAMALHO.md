@@ -76,7 +76,7 @@
 * Realizei novos testes para verificar o funcionamento das funcionalidades implementadas.
 * Dei continuidade aos estudos relacionados à funcionalidade pela qual fiquei responsável, buscando entender melhor sua implementação e como ela se integra ao restante do sistema.
 
-# Encontro 12 14/10/26
+# Encontro 13 14/10/26
 
 - Dediquei o dia ao estudo das funcionalidades do sistema, buscando compreender melhor seu funcionamento e comportamento.
 - Explorei a área de histórico, pela qual fiquei responsável, realizando testes para verificar suas funcionalidades e entender melhor como o código está estruturado.
