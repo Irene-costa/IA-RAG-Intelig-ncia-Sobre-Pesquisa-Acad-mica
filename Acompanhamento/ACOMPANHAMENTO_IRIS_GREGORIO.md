@@ -133,3 +133,16 @@ Na verificação do banco, constatei que a tabela `artigos` possui 157 registros
 A correção do código ainda precisa ser validada com a carga dos dados sintéticos e uma nova consulta SQL. Também permanecem pendentes a investigação da resposta contraditória da Q01, a validação final das alterações e a atualização do acompanhamento no Git.
 
 Utilizei a IA como apoio para analisar o código, interpretar os resultados dos comandos no PowerShell e orientar os testes. Não considerei a correção concluída, pois ainda é necessário validar o carregamento dos dados.
+
+## 14/10/2026
+### Relato individual — Iris Gregorio
+
+Na atividade registrada para esta data, foi realizada a análise da consistência do índice utilizado pelo projeto Adaptive RAG, com foco na recuperação de informações sobre editais, financiamento e produção científica.
+
+A comparação entre os chunks atuais e os registros do índice ativo identificou divergências de conteúdo, registros ausentes e documentos adicionais. Também foram encontrados registros contendo dados brutos de arquivos PDF, em vez do conteúdo textual esperado.
+
+Para investigar o problema sem substituir o índice ativo, foi preparada uma versão candidata separada, composta por 779 chunks únicos, com conteúdo preenchido e legível, além de vetores de embeddings válidos e documentos preparados para a busca BM25.
+
+Foram verificadas as buscas densa e BM25 e a combinação dos resultados pelo método Reciprocal Rank Fusion (RRF), utilizando uma consulta sobre publicações com menção de financiamento da FAPERJ. Os resultados recuperaram documentos relacionados à produção científica e aos editais normativos. Essa verificação é preliminar e não confirma, por si só, a correção da resposta final do sistema.
+
+O índice candidato foi mantido separado, sem substituir o índice ativo. Permanecem necessárias a verificação da origem dos registros recuperados e a validação dos resultados antes de qualquer alteração definitiva no pipeline.
