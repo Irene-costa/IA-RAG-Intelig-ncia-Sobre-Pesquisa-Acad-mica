@@ -51,4 +51,7 @@
 
 # Encontro 13 14/10/2026
     Hoje fiquei estudando e organizando para a apresentação
+
+# Encontro 14 16/10/2026
+    Hoje fiquei estudando e organizando para a apresentação. Me organizei para a apresentação antecipada mas acabou não dando certo.
     
