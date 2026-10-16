@@ -232,3 +232,17 @@ Dia dedicado integralmente ao estudo teórico, revisão de código e alinhamento
 ### Próximos passos:
 - Combinar com o Felipe uma breve apresentação.
 - Estudar mais o código e treinar a apresentação oral da minha parte do desafio.
+
+### Encontro 14 - 16/10/2026
+
+## O que fiz hoje:
+
+- Hoje fiquei estudando a minha parte pra ter mais segurança para apresentação.
+- Fiz anotações no Notion pessoal sobre o src/fetch_corpus.py , auto_discover_corpus.py , ingest.py , CORPUS_INVENTORY.md , corpus_manifest.yaml .
+- Dei ideia de colocarmos a logo da residência IA & RAG da trilha Ecoa PUC-Rio no nosso fundo de tela do zoom, para dar destaque na apresentação.
+- Fiquei na expectativa de uma breve apresentação com o Felipe , mas não aconteceu.
+
+### Próximos passos:
+
+- Treinar a parte oral pra apresentação.
+- Revisar alguns pontos para estar pronta para apresentar o desafio.
