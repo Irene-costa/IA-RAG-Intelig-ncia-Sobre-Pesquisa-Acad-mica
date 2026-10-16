@@ -78,3 +78,8 @@
 # Encontro 12 14/10/26
 
 * Realizei estudos sobre a parte do projeto pela qual sou responsável, buscando compreender melhor a estrutura do código e o funcionamento do sistema.
+
+# Encontro 13 16/10/26
+
+* Estudei o funcionamento do sistema, buscando compreender melhor os recursos e as etapas relacionadas à minha parte no projeto.
+* Comecei a elaborar meu roteiro de apresentação, organizando os principais pontos que serão abordados.
