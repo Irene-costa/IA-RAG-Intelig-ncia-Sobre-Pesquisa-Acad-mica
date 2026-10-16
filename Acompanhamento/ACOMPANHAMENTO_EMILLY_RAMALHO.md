@@ -78,6 +78,15 @@
 
 # Encontro 13 14/10/26
 
-- Dediquei o dia ao estudo das funcionalidades do sistema, buscando compreender melhor seu funcionamento e comportamento.
-- Explorei a área de histórico, pela qual fiquei responsável, realizando testes para verificar suas funcionalidades e entender melhor como o código está estruturado.
-- Continuei aprofundando meus conhecimentos sobre o sistema, identificando pontos importantes para a continuidade dos testes e dos estudos.
+* Dediquei o dia ao estudo das funcionalidades do sistema, buscando compreender melhor seu funcionamento e comportamento.
+* Explorei a área de histórico, pela qual fiquei responsável, realizando testes para verificar suas funcionalidades e entender melhor como o código está estruturado.
+* Continuei aprofundando meus conhecimentos sobre o sistema, identificando pontos importantes para a continuidade dos testes e dos estudos.
+
+# Encontro 14 16/10/26
+
+* Analisei com mais atenção os recursos disponíveis no sistema, buscando compreender melhor suas aplicações.
+* Realizei testes na área do histórico, observando seu comportamento e examinando aspectos do código relacionados a essa funcionalidade.
+* Comecei a estruturar o roteiro da apresentação, selecionando os pontos mais relevantes para explicar a minha parte no projeto.
+* Organizei os conhecimentos adquiridos durante os estudos, destacando informações importantes para a apresentação e para a continuidade do desenvolvimento.
+
+
