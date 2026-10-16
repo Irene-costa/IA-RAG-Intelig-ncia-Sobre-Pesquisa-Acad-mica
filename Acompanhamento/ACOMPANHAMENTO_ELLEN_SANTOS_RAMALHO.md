@@ -75,11 +75,11 @@
 * Busquei entender a importância dos logs e da observabilidade no projeto, procurando compreender como esses recursos contribuem para o acompanhamento do funcionamento da aplicação.
 * Procurei identificar quais partes do código estão relacionadas aos logs e à observabilidade, buscando compreender melhor como esses recursos estão presentes no projeto.
 
-# Encontro 12 14/10/26
+# Encontro 13 14/10/26
 
 * Realizei estudos sobre a parte do projeto pela qual sou responsável, buscando compreender melhor a estrutura do código e o funcionamento do sistema.
 
-# Encontro 13 16/10/26
+# Encontro 14 16/10/26
 
 * Estudei o funcionamento do sistema, buscando compreender melhor os recursos e as etapas relacionadas à minha parte no projeto.
 * Comecei a elaborar meu roteiro de apresentação, organizando os principais pontos que serão abordados.
