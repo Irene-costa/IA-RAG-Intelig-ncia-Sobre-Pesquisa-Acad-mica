@@ -246,3 +246,4 @@ Dia dedicado integralmente ao estudo teórico, revisão de código e alinhamento
 
 - Treinar a parte oral pra apresentação.
 - Revisar alguns pontos para estar pronta para apresentar o desafio.
+- Dar explicação ao email do Felipe da Puc-Rio sobre a instabilidade da internet na quinta-feira e sexta-feira durante a aula.
