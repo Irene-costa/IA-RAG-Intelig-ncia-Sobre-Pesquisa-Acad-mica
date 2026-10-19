@@ -83,3 +83,7 @@
 
 * Estudei o funcionamento do sistema, buscando compreender melhor os recursos e as etapas relacionadas à minha parte no projeto.
 * Comecei a elaborar meu roteiro de apresentação, organizando os principais pontos que serão abordados.
+
+Encontro 15 19/10/26
+
+* Continuação do meu roteiro de apresentação.
