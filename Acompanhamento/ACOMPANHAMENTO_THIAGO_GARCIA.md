@@ -70,4 +70,10 @@
 
     - continuação do estudo do código completo para melhor entendimento
     - continuação do desenvolvimento da apresentação final
-    - busca de mais dados para popular 
+    - busca de mais dados para popular
+
+## Encontro 15 - 19/10/2026
+
+    - continuação do estudo do código completo para melhor entendimento
+    - continuação do desenvolvimento da apresentação final
+    - busca de mais dados para popularo projeto
