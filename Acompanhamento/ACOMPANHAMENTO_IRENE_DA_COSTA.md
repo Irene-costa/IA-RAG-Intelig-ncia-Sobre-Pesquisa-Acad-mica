@@ -247,3 +247,16 @@ Dia dedicado integralmente ao estudo teórico, revisão de código e alinhamento
 - Treinar a parte oral pra apresentação.
 - Revisar alguns pontos para estar pronta para apresentar o desafio.
 - Dar explicação ao email do Felipe da Puc-Rio sobre a instabilidade da internet na quinta-feira e sexta-feira durante a aula.
+
+## Encontro 14 - 19/10/2026
+
+### O que fiz hoje:
+
+- Estudei mais o desafio e os códigos para ter uma boa apresentação.
+- Tirei dúvidas com o Felipe para saber melhor como devemos apresentar e o que cada um no grupo vai explicar exatamente.
+- Atualizei do GitHub coloquei o meu Acompanhamento.md do encontro de hoje.
+
+#### Próximos passos:
+
+- Fazer uma breve apresentação pro Felipe antes do dia da apresentação final, com as dicas que ele deu hoje.
+- Fazer uns slides do desafio e treinar oralmente o que irei apresentar pro Felipe, pra Residência e a banca.
