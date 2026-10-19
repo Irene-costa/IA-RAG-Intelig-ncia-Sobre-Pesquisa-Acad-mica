@@ -89,4 +89,9 @@
 * Comecei a estruturar o roteiro da apresentação, selecionando os pontos mais relevantes para explicar a minha parte no projeto.
 * Organizei os conhecimentos adquiridos durante os estudos, destacando informações importantes para a apresentação e para a continuidade do desenvolvimento.
 
+# Encontro 15 16/10/26
+
+* Continue organizando o meu roteiro de apresentação, para deixar tudo alinhado. 
+
+
 
