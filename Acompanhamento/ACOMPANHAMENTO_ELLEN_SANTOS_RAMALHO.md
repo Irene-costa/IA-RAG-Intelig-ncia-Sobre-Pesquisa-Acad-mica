@@ -83,3 +83,15 @@
 
 * Estudei o funcionamento do sistema, buscando compreender melhor os recursos e as etapas relacionadas à minha parte no projeto.
 * Comecei a elaborar meu roteiro de apresentação, organizando os principais pontos que serão abordados.
+
+# Encontro 15 19/10/26
+
+* Continuação do meu roteiro de apresentação.
+
+# Encontro 16 21/10/26
+
+* Eu e Emilly reunimos as partes desenvolvidas pelos integrantes do grupo e organizamos os slides, buscando deixar a apresentação mais estruturada.
+* Eu e Emilly ajustamos o design e a organização visual dos slides, buscando melhorar a disposição das informações.
+* Organizei os tópicos e as informações referentes à minha parte do trabalho.
+* Participei da apresentação do trabalho realizado pelo grupo.
+* Recebi o feedback do professor sobre a apresentação, considerando as sugestões e os aspectos que poderiam ser aprimorados.

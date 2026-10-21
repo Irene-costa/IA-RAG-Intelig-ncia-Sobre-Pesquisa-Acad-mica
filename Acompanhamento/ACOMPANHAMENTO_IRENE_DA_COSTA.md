@@ -247,3 +247,30 @@ Dia dedicado integralmente ao estudo teórico, revisão de código e alinhamento
 - Treinar a parte oral pra apresentação.
 - Revisar alguns pontos para estar pronta para apresentar o desafio.
 - Dar explicação ao email do Felipe da Puc-Rio sobre a instabilidade da internet na quinta-feira e sexta-feira durante a aula.
+
+## Encontro 15 - 19/10/2026
+
+### O que fiz hoje:
+
+- Estudei mais o desafio e os códigos para ter uma boa apresentação.
+- Tirei dúvidas com o Felipe para saber melhor como devemos apresentar e o que cada um no grupo vai explicar exatamente.
+- Atualizei do GitHub coloquei o meu Acompanhamento.md do encontro de hoje.
+
+#### Próximos passos:
+
+- Fazer uma breve apresentação pro Felipe antes do dia da apresentação final, com as dicas que ele deu hoje.
+- Fazer uns slides do desafio e treinar oralmente o que irei apresentar pro Felipe, pra Residência e a banca.
+
+## Encontro 16 - 21/10/2026
+
+### O que fiz hoje:
+
+- Fiz o slide que o Felipe pediu
+- Estudei sobre a "Descoberta Automática de Arquivos", com auxilio das IAs do chat gpt e gemini
+- Fiz a breve apresentação pro Felipe sobre a minha parte do desafio
+- Subi o acompanhamento do dia pro GitHub
+
+### Próximos passos:
+
+- Ajustar os slides do grupo, diminuir a quantidade de slides
+- Estudar mais oralmente a apresentação para o dia da apresentação real

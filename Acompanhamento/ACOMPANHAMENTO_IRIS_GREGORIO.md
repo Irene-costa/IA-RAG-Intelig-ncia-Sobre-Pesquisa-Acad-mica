@@ -1,4 +1,4 @@
-﻿# Acompanhamento — Iris Gregorio
+# Acompanhamento — Iris Gregorio
 
 ## 14/09/2026
 
@@ -146,3 +146,23 @@ Para investigar o problema sem substituir o índice ativo, foi preparada uma ver
 Foram verificadas as buscas densa e BM25 e a combinação dos resultados pelo método Reciprocal Rank Fusion (RRF), utilizando uma consulta sobre publicações com menção de financiamento da FAPERJ. Os resultados recuperaram documentos relacionados à produção científica e aos editais normativos. Essa verificação é preliminar e não confirma, por si só, a correção da resposta final do sistema.
 
 O índice candidato foi mantido separado, sem substituir o índice ativo. Permanecem necessárias a verificação da origem dos registros recuperados e a validação dos resultados antes de qualquer alteração definitiva no pipeline.
+
+## 16/10/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje continuei a verificação do funcionamento do Adaptive RAG, retomando os testes de recuperação de documentos utilizados no projeto. Analisei a busca densa e a busca BM25, além da combinação dos resultados pelo método Reciprocal Rank Fusion (RRF).
+
+O foco foi verificar a recuperação de informações relacionadas a editais, financiamento e produção científica. Também retomei a análise da consulta sobre financiamento da FAPERJ, considerando a necessidade de conferir se os documentos recuperados realmente correspondem ao assunto pesquisado.
+
+A análise reforçou que a recuperação dos documentos precisa ser validada em conjunto com os dados da base, principalmente para evitar respostas que não estejam sustentadas pelas informações disponíveis.
+
+## 19/10/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje dei continuidade à análise dos resultados do projeto, com atenção à recuperação de documentos e à consulta relacionada ao financiamento da FAPERJ.
+
+Retomei a verificação do funcionamento do RRF na combinação dos resultados da busca densa e do BM25, considerando os testes anteriores realizados no pipeline. Também revisei os pontos que ainda precisam de validação, principalmente a consistência dos dados recuperados e sua relação com a resposta gerada pelo modelo.
+
+A investigação da questão Q01 e a validação da carga dos dados sintéticos continuam entre os pontos pendentes. O objetivo é garantir que as respostas estejam de acordo com as informações efetivamente disponíveis na base.
