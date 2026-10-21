@@ -77,3 +77,9 @@
     - continuação do estudo do código completo para melhor entendimento
     - continuação do desenvolvimento da apresentação final
     - busca de mais dados para popularo projeto
+
+## Encontro 16 - 21/10/2026
+
+    - continuação do estudo do código completo para melhor entendimento
+    - pré-conclusão do desenvolvimento da apresentação final
+    - apresentação previa ao professor
