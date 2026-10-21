@@ -87,3 +87,11 @@
 # Encontro 15 19/10/26
 
 * Continuação do meu roteiro de apresentação.
+
+# Encontro 16
+
+* Eu e Emily reunimos as partes desenvolvidas pelos integrantes do grupo e organizamos os slides para garantir uma apresentação mais clara e coesa.
+* Eu e Emily ajustamos o design e a organização visual dos slides, buscando melhorar a harmonia e a estrutura da apresentação.
+* Organizei os tópicos e as informações referentes à minha parte do trabalho.
+* Participei da apresentação do trabalho realizado pelo grupo.
+* Recebi o feedback do professor sobre a apresentação, considerando as sugestões e os aspectos que poderiam ser aprimorados.
