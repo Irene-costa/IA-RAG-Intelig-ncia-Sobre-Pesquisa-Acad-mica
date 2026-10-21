@@ -88,7 +88,7 @@
 
 * Continuação do meu roteiro de apresentação.
 
-# Encontro 16
+# Encontro 16 21/10/26
 
 * Eu e Emily reunimos as partes desenvolvidas pelos integrantes do grupo e organizamos os slides para garantir uma apresentação mais clara e coesa.
 * Eu e Emily ajustamos o design e a organização visual dos slides, buscando melhorar a harmonia e a estrutura da apresentação.
