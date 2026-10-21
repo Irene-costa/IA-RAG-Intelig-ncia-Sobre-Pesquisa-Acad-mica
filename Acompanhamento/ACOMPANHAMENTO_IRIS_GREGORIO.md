@@ -166,3 +166,14 @@ Hoje dei continuidade à análise dos resultados do projeto, com atenção à re
 Retomei a verificação do funcionamento do RRF na combinação dos resultados da busca densa e do BM25, considerando os testes anteriores realizados no pipeline. Também revisei os pontos que ainda precisam de validação, principalmente a consistência dos dados recuperados e sua relação com a resposta gerada pelo modelo.
 
 A investigação da questão Q01 e a validação da carga dos dados sintéticos continuam entre os pontos pendentes. O objetivo é garantir que as respostas estejam de acordo com as informações efetivamente disponíveis na base.
+
+## 21/10/2026
+
+### Relato individual — Iris Gregorio
+
+Hoje, dei continuidade à análise da parte de Gestão do Corpus e Ingestão do projeto. Identifiquei divergências entre o inventário do corpus, o manifesto e os caminhos de origem registrados nos chunks, tanto na documentação local quanto na versão disponível no GitHub.
+
+Após a análise, compartilhei essas observações no grupo, solicitando a verificação da versão oficial do corpus e a conferência dos arquivos de origem, para que possamos alinhar a documentação e os dados utilizados pelo sistema.
+
+Como próximo passo, aguardo o alinhamento com o grupo para confirmar as divergências identificadas e definir os ajustes necessários, sem alterar o código ou regenerar os chunks antes dessa validação.
+
