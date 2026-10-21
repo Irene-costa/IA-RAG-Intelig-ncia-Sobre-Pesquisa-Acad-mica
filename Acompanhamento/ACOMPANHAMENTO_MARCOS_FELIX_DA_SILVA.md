@@ -56,5 +56,8 @@
     Hoje fiquei estudando e organizando para a apresentação. Me organizei para a apresentação antecipada mas acabou não dando certo.
 
 # Encontro 15 19/10/2026
-    Hoje minha internet estava muito ruim, não consegui evoluir muito mas estou quase finalizando o plano de apresentação.    
+    Hoje minha internet estava muito ruim, não consegui evoluir muito mas estou quase finalizando o plano de apresentação.   
+
+# Encontro 16 21/10/2026
+    Hoje estudei a apresentação e fizemos a apresentação, depois do feedback corremos para fazer as alterações para a apresentação final. Mas teremos que finalizar fora do horário da aula.
     
