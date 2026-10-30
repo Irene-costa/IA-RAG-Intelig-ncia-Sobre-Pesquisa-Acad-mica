@@ -3,6 +3,8 @@
 > **Residência TIC em Trilhas · PUC-Rio · Instituto ECOA**  
 > **Cenário 3 · Grupo 5**
 
+# vídeo de apresentação:
+https://www.youtube.com/watch?v=XB9OAgOiC8A&t=
 ---
 
 ## 📌 Visão Geral do Projeto
